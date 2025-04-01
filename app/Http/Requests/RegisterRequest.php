@@ -25,6 +25,7 @@ class RegisterRequest extends FormRequest
             'office_id' => 'required|integer|exists:consulting_offices,id',
             'role'=>'required|string|max:20',
             'name' => 'required|string|max:255',
+            'full_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|confirmed|min:8',
         ];
