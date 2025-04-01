@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PatientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use L5Swagger\Http\Controllers\SwaggerController;
@@ -18,6 +19,17 @@ Route::group([
     $router->post('/logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('logout');
     $router->post('/refresh', [AuthController::class, 'refresh'])->middleware('auth:api')->name('refresh');
     $router->get('/getUserCurrent', [AuthController::class, 'getUserCurrent'])->middleware('auth:api')->name('getUserCurrent');
+});
+
+Route::group([
+   // 'middleware' => ['api', 'handle_exceptions'],
+    'prefix' => 'patients'
+], function ($router) {
+    $router->get('/', [PatientController::class, 'index'])->name('patients.index');
+    $router->get('/{id}', [PatientController::class, 'show'])->name('patients.show');
+    $router->post('/', [PatientController::class, 'store'])->name('patients.store');
+    $router->put('/{id}', [PatientController::class, 'update'])->name('patients.update');
+    $router->delete('/{id}', [PatientController::class, 'destroy'])->name('patients.destroy');
 });
 
 

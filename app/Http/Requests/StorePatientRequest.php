@@ -11,7 +11,7 @@ class StorePatientRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,34 @@ class StorePatientRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+
+        $id = $this->route('id') ?? null;
+        $rules = [];
+        if ($this->isMethod('post')) {
+            $rules = [
+                'name' => 'required|string',
+                'last_name' => 'required|string',
+                'type_document' => 'required|string',
+                'number_document' => 'required|string|unique:patients',
+                'date_of_birth' => 'required|date',
+                'email' => 'required|email|unique:patients',
+                'cellphone' => 'required|string',
+            ];
+        }
+
+        if ($this->isMethod('patch') || $this->isMethod('put')) {
+
+            $rules = [
+                'name' => 'sometimes|required|string',
+                'last_name' => 'sometimes|required|string',
+                'type_document' => 'sometimes|required|string',
+                'number_document' => 'sometimes|required|string|unique:patients,number_document,' . $id,
+                'date_of_birth' => 'sometimes|required|date',
+                'email' => 'sometimes|required|email|unique:patients,email,' . $id,
+                'cellphone' => 'sometimes|required|string'
+            ];
+        }
+
+        return $rules;
     }
 }
