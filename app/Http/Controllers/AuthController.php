@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use OpenApi\Annotations as OA;
@@ -89,7 +90,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request): JsonResponse
     {
 
-        $token = $this->authService->login($request->validated());
+        $token = $this->authService->login($request->validated(), $request->ip(), $request->device_name);
 
         return response()->json($token);
     }
@@ -103,11 +104,9 @@ class AuthController extends Controller
      *         response=200,
      *         description="Datos del usuario autenticado",
      *         @OA\JsonContent(
-     *             @OA\Property(property="id", type="integer", example=1),
-     *             @OA\Property(property="name", type="string", example="John Doe"),
-     *             @OA\Property(property="email", type="string", example="john.doe@example.com"),
-     *             @OA\Property(property="created_at", type="string", format="date-time", example="2025-02-04T15:04:05Z"),
-     *             @OA\Property(property="updated_at", type="string", format="date-time", example="2025-02-04T15:04:05Z")
+     *             @OA\Property(property="user", type="object"),
+     *             @OA\Property(property="roles", type="object"),
+     *             @OA\Property(property="permissions", type="object"),
      *         )
      *     ),
      *     @OA\Response(
@@ -116,9 +115,15 @@ class AuthController extends Controller
      *     )
      * )
      */
+
+
     public function getUserCurrent(): JsonResponse
     {
-        $user = new UserResource($this->authService->getUserCurrent());
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+
+        $user = $this->authService->getUserCurrent();
 
         return response()->json($user);
     }
@@ -132,7 +137,7 @@ class AuthController extends Controller
      *         response=200,
      *         description="Cierre de sesión exitoso",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Successfully logged out")
+     *             @OA\Property(property="message", type="string", example="Desautenticación con éxito")
      *         )
      *     ),
      *     @OA\Response(
@@ -141,10 +146,10 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function logout(): JsonResponse
+    public function logout(Request $request): JsonResponse
     {
-        $this->authService->logout();
-        return response()->json(['message' => 'Successfully logged out']);
+        $this->authService->logout($request);
+        return response()->json(['message' => 'Desautenticación con éxito']);
     }
     /**
      *
@@ -169,10 +174,9 @@ class AuthController extends Controller
      *     )
      *   )
      */
-    public function refresh(): JsonResponse
+    public function refresh(Request $request): JsonResponse
     {
-        $token = $this->authService->refresh();
-        return $this->authService->respondWithToken($token);
+        $token = $this->authService->refresh($request);
+        return $token;
     }
-
 }

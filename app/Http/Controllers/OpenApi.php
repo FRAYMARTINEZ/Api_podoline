@@ -17,7 +17,7 @@ namespace App\Http\Controllers;
  *     securityScheme="bearerAuth",
  *     type="http",
  *     scheme="bearer",
- *     bearerFormat="JWT",
+ *     bearerFormat="Sanctum",
  *     description="Token de autenticación para acceder a la API"
  * )
  */

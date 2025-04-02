@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Repositories\Contracts\UserRepositoryInterface;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 
 class AuthService
@@ -21,37 +19,25 @@ class AuthService
         return $this->userRepository->create($data);
     }
 
-    public function login(array $credentials)
+    public function login(array $credentials, $ip, $device_name)
     {
-
         $credentials = request(['email', 'password']);
-
-        if (! $token = Auth::attempt($credentials)) {
-            return response()->json(['error' => 'Credenciales inválidas'], 401);
-        }
-
-        return $this->userRepository->respondWithToken($token);
+        return $this->userRepository->login($credentials, $ip, $device_name);
     }
 
-    public function logout()
+    public function logout($request)
     {
-        return $this->userRepository->logout();
+        return $this->userRepository->logout($request);
     }
 
-    public function refresh()
+    public function refresh($request)
     {
-        return $this->userRepository->refresh();
+        return $this->userRepository->refresh($request);
     }
 
     public function getUserCurrent()
     {
         return $this->userRepository->getUserCurrent();
-    }
-
-    public function respondWithToken($token)
-    {
-
-        return $this->userRepository->respondWithToken($token);
     }
     // Otros métodos relacionados con la autenticación
 }

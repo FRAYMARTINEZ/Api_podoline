@@ -7,15 +7,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
     use SoftDeletes;
-
+    // Si tus roles y permisos tienen un guard diferente, especificarlo
+    protected $guard_name = 'web';
     /**
      * The attributes that are mass assignable.
      *
@@ -37,6 +41,10 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     /**
@@ -75,5 +83,25 @@ class User extends Authenticatable implements JWTSubject
     public function office()
     {
         return $this->belongsTo(ConsultingOffice::class, 'office_id');
+    }
+
+    // Relación con roles (opcional si usas Spatie correctamente)
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id')
+            ->where('model_type', self::class);
+    }
+
+    // Relación con permisos
+    public function permissions()
+    {
+        return $this->hasManyThrough(
+            Permission::class,
+            Role::class,
+            'id', // Clave primaria en Role
+            'id', // Clave primaria en Permission
+            'id', // Clave foránea en model_has_roles
+            'id'  // Clave foránea en role_has_permissions
+        );
     }
 }

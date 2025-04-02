@@ -17,9 +17,9 @@ Route::group([
 ], function ($router) {
     $router->post('/register', [AuthController::class, 'register'])->name('register');
     $router->post('/login', [AuthController::class, 'login'])->name('login');
-    $router->post('/logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('logout');
-    $router->post('/refresh', [AuthController::class, 'refresh'])->middleware('auth:api')->name('refresh');
-    $router->get('/getUserCurrent', [AuthController::class, 'getUserCurrent'])->middleware('auth:api')->name('getUserCurrent');
+    $router->post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
+    $router->post('/refresh', [AuthController::class, 'refresh'])->middleware('auth:sanctum')->name('refresh');
+    $router->get('/getUserCurrent', [AuthController::class, 'getUserCurrent'])->middleware('auth:sanctum')->name('getUserCurrent');
 });
 
 Route::group([

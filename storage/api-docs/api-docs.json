@@ -174,27 +174,14 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 1
+                                        "user": {
+                                            "type": "object"
                                         },
-                                        "name": {
-                                            "type": "string",
-                                            "example": "John Doe"
+                                        "roles": {
+                                            "type": "object"
                                         },
-                                        "email": {
-                                            "type": "string",
-                                            "example": "john.doe@example.com"
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2025-02-04T15:04:05Z"
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2025-02-04T15:04:05Z"
+                                        "permissions": {
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -631,7 +618,7 @@
             "bearerAuth": {
                 "type": "http",
                 "description": "Token de autenticación para acceder a la API",
-                "bearerFormat": "JWT",
+                "bearerFormat": "Sanctum",
                 "scheme": "bearer"
             }
         }
