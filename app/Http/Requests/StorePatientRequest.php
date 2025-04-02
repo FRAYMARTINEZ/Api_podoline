@@ -23,9 +23,9 @@ class StorePatientRequest extends FormRequest
     {
 
         $id = $this->route('id') ?? null;
-        $rules = [];
+
         if ($this->isMethod('post')) {
-            $rules = [
+           return [
                 'name' => 'required|string',
                 'last_name' => 'required|string',
                 'type_document' => 'required|string',
@@ -38,7 +38,7 @@ class StorePatientRequest extends FormRequest
 
         if ($this->isMethod('patch') || $this->isMethod('put')) {
 
-            $rules = [
+            return  [
                 'name' => 'sometimes|required|string',
                 'last_name' => 'sometimes|required|string',
                 'type_document' => 'sometimes|required|string',
@@ -49,6 +49,34 @@ class StorePatientRequest extends FormRequest
             ];
         }
 
-        return $rules;
+        return [];
+    }
+
+        /**
+     * Get the custom messages for validation errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'El nombre es obligatorio.',
+            'name.string' => 'El nombre debe ser una cadena de texto.',
+            'last_name.required' => 'El apellido es obligatorio.',
+            'last_name.string' => 'El apellido debe ser una cadena de texto.',
+            'type_document.required' => 'El tipo de documento es obligatorio.',
+            'type_document.string' => 'El tipo de documento debe ser una cadena de texto.',
+            'number_document.required' => 'El número de documento es obligatorio.',
+            'number_document.string' => 'El número de documento debe ser una cadena de texto.',
+            'number_document.unique' => 'El número de documento ya está registrado.',
+            'date_of_birth.required' => 'La fecha de nacimiento es obligatoria.',
+            'date_of_birth.date' => 'La fecha de nacimiento debe ser una fecha válida.',
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'email.email' => 'El correo electrónico debe ser una dirección de correo válida.',
+            'email.unique' => 'El correo electrónico ya está registrado.',
+            'cellphone.required' => 'El número de celular es obligatorio.',
+            'cellphone.string' => 'El número de celular debe ser una cadena de texto.',
+        ];
     }
 }
+ 

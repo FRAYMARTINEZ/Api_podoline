@@ -20,8 +20,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'handle_exceptions' => \App\Http\Middleware\HandleExceptionsMiddleware::class, // Agregado
         ]);
-
-
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (AuthenticationException $e, Request $request) {
@@ -36,5 +34,9 @@ return Application::configure(basePath: dirname(__DIR__))
                 'message' => 'No tienes la autorización requerida.',
                 'status'  => 403,
             ], 403);
+        });
+
+        $exceptions->render(function (\Illuminate\Validation\ValidationException $e, $request) {
+            return response()->json($e->errors(), 422);
         });
     })->create();
