@@ -291,6 +291,158 @@
                 ]
             }
         },
+        "/consulting-offices": {
+            "get": {
+                "tags": [
+                    "Consultorios"
+                ],
+                "summary": "List all consulting offices",
+                "operationId": "4d9c468d3922697c26d97117a4e10e08",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Consultorios"
+                ],
+                "summary": "Create a consulting office",
+                "operationId": "4d95b52d68ed82ac28c6bba1f8ca6692",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "city_id",
+                                    "country_id",
+                                    "department_id",
+                                    "address"
+                                ],
+                                "properties": {
+                                    "city_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "country_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "department_id": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "123 Main Street, City, Country"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/consulting-offices/{id}": {
+            "get": {
+                "tags": [
+                    "Consultorios"
+                ],
+                "summary": "Get a consulting office",
+                "operationId": "0dc70b771cc1e1669504eb0b4ea4e014",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Consultorios"
+                ],
+                "summary": "Update a consulting office",
+                "operationId": "e8827b95209ef6a6e7ae49737bfa5381",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "city_id",
+                                    "country_id",
+                                    "department_id",
+                                    "address"
+                                ],
+                                "properties": {
+                                    "city_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "country_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "department_id": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "123 Main Street, City, Country"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Consultorios"
+                ],
+                "summary": "Delete a consulting office",
+                "operationId": "6fbb5938c7a3582d7be9babdef56d59a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
+        },
         "/patients": {
             "get": {
                 "tags": [
@@ -488,6 +640,10 @@
         {
             "name": "Autenticación",
             "description": "Autenticación"
+        },
+        {
+            "name": "Consultorios",
+            "description": "Consultorios"
         },
         {
             "name": "Pacientes",

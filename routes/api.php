@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConsultingOfficeController;
 use App\Http\Controllers\PatientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,7 @@ Route::group([
 });
 
 Route::group([
-   // 'middleware' => ['api', 'handle_exceptions'],
+    // 'middleware' => ['api', 'handle_exceptions'],
     'prefix' => 'patients'
 ], function ($router) {
     $router->get('/', [PatientController::class, 'index'])->name('patients.index');
@@ -30,6 +31,17 @@ Route::group([
     $router->post('/', [PatientController::class, 'store'])->name('patients.store');
     $router->put('/{id}', [PatientController::class, 'update'])->name('patients.update');
     $router->delete('/{id}', [PatientController::class, 'destroy'])->name('patients.destroy');
+});
+
+Route::group([
+    // 'middleware' => ['api', 'handle_exceptions'],
+    'prefix' => 'consulting-offices'
+], function ($router) {
+    $router->get('/', [ConsultingOfficeController::class, 'index'])->name('consulting-offices.index');
+    $router->get('/{id}', [ConsultingOfficeController::class, 'show'])->name('consulting-offices.show');
+    $router->post('/', [ConsultingOfficeController::class, 'store'])->name('consulting-offices.store');
+    $router->put('/{id}', [ConsultingOfficeController::class, 'update'])->name('consulting-offices.update');
+    $router->delete('/{id}', [ConsultingOfficeController::class, 'destroy'])->name('consulting-offices.destroy');
 });
 
 

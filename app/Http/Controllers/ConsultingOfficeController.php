@@ -2,65 +2,106 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ConsultingOffice;
 use App\Http\Requests\StoreConsultingOfficeRequest;
 use App\Http\Requests\UpdateConsultingOfficeRequest;
+use App\Services\ConsultingOfficeService;
 
 class ConsultingOfficeController extends Controller
 {
+    protected $service;
+
+    public function __construct(ConsultingOfficeService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/consulting-offices",
+     *     summary="List all consulting offices",
+     *     tags={"Consultorios"},
+     *     @OA\Response(response=200, description="Success"),
+     * )
      */
     public function index()
     {
-        //
+        return response()->json($this->service->all());
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/consulting-offices",
+     *     summary="Create a consulting office",
+     *     tags={"Consultorios"},
+     *     @OA\RequestBody(
+     *     required=true,
+     *     @OA\JsonContent(
+     *         type="object",
+     *         required={"city_id", "country_id", "department_id", "address"},
+     *         @OA\Property(property="city_id", type="integer", example=1),
+     *         @OA\Property(property="country_id", type="integer", example=2),
+     *         @OA\Property(property="department_id", type="integer", example=3),
+     *         @OA\Property(property="address", type="string", example="123 Main Street, City, Country")
+     *     )
+     * ),
+     *     @OA\Response(response=201, description="Created"),
+     * )
      */
     public function store(StoreConsultingOfficeRequest $request)
     {
-        //
+        return response()->json($this->service->create($request->validated()), 201);
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/consulting-offices/{id}",
+     *     summary="Get a consulting office",
+     *     tags={"Consultorios"},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Success"),
+     * )
      */
-    public function show(ConsultingOffice $consultingOffice)
+    public function show($id)
     {
-        //
+        return response()->json($this->service->find($id));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @OA\Put(
+     *     path="/consulting-offices/{id}",
+     *     summary="Update a consulting office",
+     *     tags={"Consultorios"},
+     * @OA\RequestBody(
+     *     required=true,
+     *     @OA\JsonContent(
+     *         type="object",
+     *         required={"city_id", "country_id", "department_id", "address"},
+     *         @OA\Property(property="city_id", type="integer", example=1),
+     *         @OA\Property(property="country_id", type="integer", example=2),
+     *         @OA\Property(property="department_id", type="integer", example=3),
+     *         @OA\Property(property="address", type="string", example="123 Main Street, City, Country")
+     *     )
+     * ),
+     *     @OA\Response(response=200, description="Updated"),
+     * )
      */
-    public function edit(ConsultingOffice $consultingOffice)
+    public function update(UpdateConsultingOfficeRequest $request, $id)
     {
-        //
+        return response()->json($this->service->update($id, $request->validated()));
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Delete(
+     *     path="/consulting-offices/{id}",
+     *     summary="Delete a consulting office",
+     *     tags={"Consultorios"},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=204, description="Deleted"),
+     * )
      */
-    public function update(UpdateConsultingOfficeRequest $request, ConsultingOffice $consultingOffice)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ConsultingOffice $consultingOffice)
-    {
-        //
+        $this->service->delete($id);
+        return response()->json(null, 204);
     }
 }
