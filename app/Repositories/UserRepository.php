@@ -48,7 +48,9 @@ class UserRepository implements UserRepositoryInterface
     {
         $user = Auth::user();
         return [
-            'user' =>    $user,
+            'user' => $user->with(['roles.permissions'])
+            ->where('id', Auth::id())
+            ->first(),
         ];
     }
     public function login($credentials,$ip,$device_name )  {

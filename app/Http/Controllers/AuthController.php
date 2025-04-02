@@ -104,9 +104,7 @@ class AuthController extends Controller
      *         response=200,
      *         description="Datos del usuario autenticado",
      *         @OA\JsonContent(
-     *             @OA\Property(property="user", type="object"),
-     *             @OA\Property(property="roles", type="object"),
-     *             @OA\Property(property="permissions", type="object"),
+     *             @OA\Property(property="user", type="object")
      *         )
      *     ),
      *     @OA\Response(
