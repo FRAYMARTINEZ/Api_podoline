@@ -18,12 +18,13 @@ return new class extends Migration
             $table->integer('shoe_size'); // Talla de zapato
 
             // Imágenes
-            $table->string('back_standing_up_image');
-            $table->string('back_45_image');
-            $table->string('back_toes_up_image');
-            $table->string('from_chaplin_image');
-            $table->string('from_chaplin_toes_up_image');
-            $table->string('with_insoles_image');
+            // $table->string('back_standing_up_image');
+            // $table->string('back_45_image');
+            // $table->string('back_toes_up_image');
+            // $table->string('from_chaplin_image');
+            // $table->string('from_chaplin_toes_up_image');
+            // $table->string('with_insoles_image');
+
 
             $table->string('footstep_type_left'); // Tipo pisada Izq
             $table->string('footstep_type_right'); // Tipo pisada Der

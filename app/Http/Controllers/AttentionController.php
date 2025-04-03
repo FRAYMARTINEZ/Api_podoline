@@ -5,31 +5,41 @@ namespace App\Http\Controllers;
 use App\Models\Attention;
 use App\Http\Requests\StoreAttentionRequest;
 use App\Http\Requests\UpdateAttentionRequest;
+use App\Services\AttentionService;
+use Illuminate\Http\Request;
 
 class AttentionController extends Controller
 {
+
+    protected $serviceAttention;
+
+    public function __construct(AttentionService $serviceAttention)
+    {
+        $this->serviceAttention = $serviceAttention;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return $this->serviceAttention->all($request);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAttentionRequest $request)
+    public function store(Request $request)
     {
-        //
+        return $this->serviceAttention->store($request);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Attention $attention)
+    public function show(int $id)
     {
-        //
+        return $this->serviceAttention->find($id);
     }
 
     /**

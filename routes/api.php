@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AttentionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConsultingOfficeController;
 use App\Http\Controllers\DefaultController;
 use App\Http\Controllers\PatientController;
+use App\Models\Attention;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use L5Swagger\Http\Controllers\SwaggerController;
@@ -54,7 +56,14 @@ Route::group([
 });
 
 
-
+Route::group([
+    'middleware' => ['api', 'handle_exceptions'],
+    'prefix' => 'attentions'
+], function ($router) {
+    $router->get('/', [AttentionController::class, 'index'])->name('attentions.index');
+    $router->get('/{id}', [AttentionController::class, 'show'])->name('attentions.show');
+    $router->post('/', [AttentionController::class, 'store'])->name('attentions.store');
+});
 
 /*
 Ejemplo de como validar rutas con rol o permiso

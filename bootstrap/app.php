@@ -18,7 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
-            'handle_exceptions' => \App\Http\Middleware\HandleExceptionsMiddleware::class, // Agregado
+            'handle_exceptions' => \App\Http\Middleware\HandleExceptionsMiddleware::class, 
+            
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
