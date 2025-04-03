@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConsultingOfficeController;
+use App\Http\Controllers\DefaultController;
 use App\Http\Controllers\PatientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,15 @@ Route::group([
     $router->put('/{id}', [ConsultingOfficeController::class, 'update'])->name('consulting-offices.update');
     $router->delete('/{id}', [ConsultingOfficeController::class, 'destroy'])->name('consulting-offices.destroy');
 });
+
+Route::group([
+    'middleware' => ['api', 'handle_exceptions'],
+    'prefix' => 'data-defaults'
+], function ($router) {
+    $router->get('/', [DefaultController::class, 'dataDefault'])->name('data-defaults.dataDefault');
+    $router->get('/{id}/cities', [DefaultController::class, 'findCity'])->name('data-defaults.findCity');
+});
+
 
 
 

@@ -176,12 +176,6 @@
                                     "properties": {
                                         "user": {
                                             "type": "object"
-                                        },
-                                        "roles": {
-                                            "type": "object"
-                                        },
-                                        "permissions": {
-                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -216,7 +210,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Successfully logged out"
+                                            "example": "Desautenticación con éxito"
                                         }
                                     },
                                     "type": "object"
@@ -430,6 +424,116 @@
                 }
             }
         },
+        "/data-defaults": {
+            "get": {
+                "tags": [
+                    "Default"
+                ],
+                "summary": "Obtener datos por defecto",
+                "operationId": "1d9d02f76dd3bda0bb7c94f64b2e4591",
+                "responses": {
+                    "200": {
+                        "description": "Datos por defecto obtenidos exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "countries": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "departments": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "cities": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/data-defaults/{department_id}/cities": {
+            "get": {
+                "tags": [
+                    "Default"
+                ],
+                "summary": "Buscar ciudades por departamento",
+                "operationId": "4521c824aa421b39c0be56d79c4fcef3",
+                "parameters": [
+                    {
+                        "name": "department_id",
+                        "in": "path",
+                        "description": "ID del departamento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ciudades obtenidas exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validación fallida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "department_id": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/patients": {
             "get": {
                 "tags": [
@@ -631,6 +735,10 @@
         {
             "name": "Consultorios",
             "description": "Consultorios"
+        },
+        {
+            "name": "Default",
+            "description": "Default"
         },
         {
             "name": "Pacientes",

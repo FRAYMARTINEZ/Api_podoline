@@ -12,6 +12,17 @@ class City extends Model
 
     protected $fillable = ['name', 'department_id'];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function department()
     {
         return $this->belongsTo(Department::class);
