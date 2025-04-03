@@ -44,6 +44,7 @@ class RolePermissionSeeder extends Seeder
 
         ConsultingOffice::insert([
             [
+                'name'=>'Consultorio Cali',
                 'country_id' => 1, // Asegúrate de que exista en la tabla countries
                 'department_id' => 1, // Asegúrate de que exista en la tabla departments
                 'city_id' => 1, // Asegúrate de que exista en la tabla cities
@@ -52,6 +53,7 @@ class RolePermissionSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'name'=>'Consultorio Medellin',
                 'country_id' => 1,
                 'department_id' => 2,
                 'city_id' => 2,

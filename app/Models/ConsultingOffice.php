@@ -11,6 +11,7 @@ class ConsultingOffice extends Model
     protected $table = 'consulting_offices';
 
     protected $fillable = [
+        'name',
         'city_id',
         'country_id',
         'department_id',

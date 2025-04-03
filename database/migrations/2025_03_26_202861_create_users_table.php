@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('office_id')->constrained('consulting_offices')->onDelete('cascade');
             $table->string('name');
+            $table->string('full_name')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
