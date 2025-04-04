@@ -52,6 +52,10 @@ class UpdateConsultingOfficeRequest extends FormRequest
             'address.required' => 'La dirección es obligatoria.',
             'address.string' => 'La dirección debe ser un texto.',
             'address.max' => 'La dirección no puede tener más de 255 caracteres.',
+
+            'name.required' => 'El name es obligatoria.',
+            'name.string' => 'El nombre debe ser un texto.',
+            'name.max' => 'El name no puede tener más de 255 caracteres.',
         ];
     }
 }
