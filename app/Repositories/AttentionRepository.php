@@ -9,6 +9,9 @@ use App\Repositories\Contracts\AttentionRepositoryInterface;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AttentionRepository implements AttentionRepositoryInterface
 {
@@ -18,7 +21,7 @@ class AttentionRepository implements AttentionRepositoryInterface
         return Attention::with('images')->get();
     }
 
-    public function find($id)
+    public function find(int $id)
     {
         $attention = Attention::with('images')->find($id);
         if (!$attention) {
@@ -62,7 +65,7 @@ class AttentionRepository implements AttentionRepositoryInterface
                 if ($request->hasFile($key)) {
                     $imageInfo = $this->saveWebpImage(
                         $request->file($key),
-                        "attentions/$key", // Directorio
+                        "attentions/$attention->id/$key", // Directorio
                         80, // Calidad
                         800 // Ancho máximo
                     );
@@ -85,14 +88,69 @@ class AttentionRepository implements AttentionRepositoryInterface
         }
     }
 
-    public function update($id, Request $data)
+    public function update(int $id, Request $request)
     {
-        $office = Attention::findOrFail($id);
-        $office->update($data);
-        return $office;
+        $data = $request->only([
+            'appointment_date',
+            'shoe_size',
+            'footstep_type_left',
+            'footstep_type_right',
+            'foot_type_left',
+            'foot_type_right',
+            'heel_type_left',
+            'heel_type_right',
+            'observations'
+        ]);
+
+        $imageKeys = [
+            'back_standing_up_image',
+            'back_45_image',
+            'back_toes_up_image',
+            'from_chaplin_image',
+            'from_chaplin_toes_up_image',
+            'with_insoles_image',
+        ];
+
+        try {
+            DB::beginTransaction();
+            $attention = Attention::with('images')->find($id);
+            // Actualiza los campos del modelo
+            $attention->update($data);
+
+            foreach ($imageKeys as $key) {
+
+                if ($request->hasFile($key)) {
+
+                    foreach ($attention->images as $image) {
+
+                        if (Str::contains($image->path, $key)) {
+                            if (Storage::exists('public/' . $image->path)) {
+                                Storage::delete('public/' . $image->path);
+                            }
+                            $image->delete();
+                        }
+                    }
+
+                    $imageInfo = $this->saveWebpImage(
+                        $request->file($key),
+                        "attentions/$attention->id/$key", // carpeta destino
+                        80, // calidad
+                        800 // ancho
+                    );
+
+                    $attention->images()->create($imageInfo);
+                }
+            }
+
+            DB::commit();
+            return response()->json(['message' => 'Atención actualizada correctamente.']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => 'Error al actualizar la atención: ' . $e->getMessage()]);
+        }
     }
 
-    public function delete($id)
+    public function delete(int $id)
     {
         return Attention::destroy($id);
     }

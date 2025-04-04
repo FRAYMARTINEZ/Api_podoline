@@ -31,7 +31,7 @@ class AttentionService
         return $this->attentionRepository->store($data);
     }
 
-    public function update(int $id, Request $data): ?Attention
+    public function update(int $id, Request $data)
     {
         return $this->attentionRepository->update($id, $data);
     }

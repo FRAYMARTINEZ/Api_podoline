@@ -21,8 +21,9 @@ class Image extends Model
     ];
 
     // Relación polimórfica para conectar la imagen a cualquier modelo
-    public function imageable(): MorphTo
+    public function model(): MorphTo
     {
-        return $this->morphTo('model');
+        return $this->morphTo();
     }
+    
 }

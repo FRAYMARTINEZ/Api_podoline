@@ -45,16 +45,16 @@ class AttentionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAttentionRequest $request, Attention $attention)
+    public function update(Request $request, int $id)
     {
-        //
+        return $this->serviceAttention->update($id, $request);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Attention $attention)
+    public function destroy(int $id)
     {
-        //
+        return $this->serviceAttention->delete($id);
     }
 }

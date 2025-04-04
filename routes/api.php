@@ -63,6 +63,8 @@ Route::group([
     $router->get('/', [AttentionController::class, 'index'])->name('attentions.index');
     $router->get('/{id}', [AttentionController::class, 'show'])->name('attentions.show');
     $router->post('/', [AttentionController::class, 'store'])->name('attentions.store');
+    $router->put('/{id}', [AttentionController::class, 'update'])->name('attentions.update');
+    $router->delete('/{id}', [AttentionController::class, 'destroy'])->name('attentions.destroy');
 });
 
 /*
