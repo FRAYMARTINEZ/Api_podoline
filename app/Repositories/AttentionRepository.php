@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Exceptions\NotFoundException;
 use App\Models\Attention;
+use App\Models\AttentionPatient;
 use App\Models\Image;
 use App\Repositories\Contracts\AttentionRepositoryInterface;
 use App\Traits\ImageTrait;
@@ -23,7 +24,8 @@ class AttentionRepository implements AttentionRepositoryInterface
 
     public function find(int $id)
     {
-        $attention = Attention::with('images')->find($id);
+        $attention = Attention::with(['images', 'patients'])->findOrFail($id);
+
         if (!$attention) {
             throw new NotFoundException("El Id ingresado no conside, con ninguna atención");
         }
@@ -33,6 +35,7 @@ class AttentionRepository implements AttentionRepositoryInterface
     {
         // Obtener solo los datos necesarios
         $data = $request->only([
+            'patient_id',
             'appointment_date', // Fecha de atención
             'shoe_size', // Talla de zapato
             'footstep_type_left', // Tipo pisada Izq
@@ -75,6 +78,11 @@ class AttentionRepository implements AttentionRepositoryInterface
                     $attention->images()->save($image); // Relación 'images' en el modelo Attention
                 }
             }
+
+            AttentionPatient::create([
+                'attention_id' => $attention->id,
+                'patient_id' => $data['patient_id'],
+            ]);
 
             // Confirmar la transacción
             DB::commit();

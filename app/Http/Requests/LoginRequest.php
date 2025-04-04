@@ -26,4 +26,21 @@ class LoginRequest extends FormRequest
             'password' => 'required|string|min:8',
         ];
     }
+
+    /**
+     * Mensajes personalizados para los errores de validación.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'email.email' => 'Debe ingresar un correo electrónico válido.',
+
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.string' => 'La contraseña debe ser texto.',
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+        ];
+    }
 }

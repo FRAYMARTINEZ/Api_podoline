@@ -15,7 +15,7 @@ class PatientRepository implements PatientRepositoryInterface
 
     public function find(int $id): ?Patient
     {
-        return Patient::find($id);
+        return Patient::with('attentions.images')->findOrFail($id);
     }
 
     public function create(array $data): Patient

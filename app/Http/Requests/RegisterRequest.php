@@ -23,11 +23,47 @@ class RegisterRequest extends FormRequest
     {
         return [
             'office_id' => 'required|integer|exists:consulting_offices,id',
-            'role'=>'required|string|max:20',
+            'role' => 'required|string|max:20',
             'name' => 'required|string|max:255',
             'full_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|confirmed|min:8',
+        ];
+    }
+
+
+    /**
+     * Mensajes personalizados de validación.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'office_id.required' => 'La oficina es obligatoria.',
+            'office_id.integer' => 'El ID de la oficina debe ser un número.',
+            'office_id.exists' => 'La oficina seleccionada no existe.',
+
+            'role.required' => 'El rol es obligatorio.',
+            'role.string' => 'El rol debe ser una cadena de texto.',
+            'role.max' => 'El rol no debe superar los 20 caracteres.',
+
+            'name.required' => 'El nombre es obligatorio.',
+            'name.string' => 'El nombre debe ser texto.',
+            'name.max' => 'El nombre no debe superar los 255 caracteres.',
+
+            'full_name.required' => 'El nombre completo es obligatorio.',
+            'full_name.string' => 'El nombre completo debe ser texto.',
+            'full_name.max' => 'El nombre completo no debe superar los 255 caracteres.',
+
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'email.email' => 'Debe ingresar un correo electrónico válido.',
+            'email.unique' => 'Este correo electrónico ya está registrado.',
+
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.string' => 'La contraseña debe ser una cadena de texto.',
+            'password.confirmed' => 'Las contraseñas no coinciden.',
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
         ];
     }
 }
