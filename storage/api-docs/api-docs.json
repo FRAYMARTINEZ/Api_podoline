@@ -32,7 +32,19 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
+                                        "example": "John"
+                                    },
+                                    "full_name": {
+                                        "type": "string",
                                         "example": "John Doe"
+                                    },
+                                    "office_id": {
+                                        "type": "number",
+                                        "example": 1
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "example": "Seleccionar uno de estos: Administrador, Profesional1, Profesional2"
                                     },
                                     "email": {
                                         "type": "string",
