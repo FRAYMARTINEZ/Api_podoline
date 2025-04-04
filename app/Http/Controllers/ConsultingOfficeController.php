@@ -37,7 +37,8 @@ class ConsultingOfficeController extends Controller
      *     required=true,
      *     @OA\JsonContent(
      *         type="object",
-     *         required={"city_id", "country_id", "department_id", "address"},
+     *         required={"name","city_id", "country_id", "department_id", "address"},
+     *         @OA\Property(property="name", type="string", example="Consultorio"),
      *         @OA\Property(property="city_id", type="integer", example=1),
      *         @OA\Property(property="country_id", type="integer", example=2),
      *         @OA\Property(property="department_id", type="integer", example=3),
@@ -75,7 +76,8 @@ class ConsultingOfficeController extends Controller
      *     required=true,
      *     @OA\JsonContent(
      *         type="object",
-     *         required={"city_id", "country_id", "department_id", "address"},
+     *         required={"name","city_id", "country_id", "department_id", "address"},
+     *         @OA\Property(property="name", type="string", example="Consultorio XYZ"),
      *         @OA\Property(property="city_id", type="integer", example=1),
      *         @OA\Property(property="country_id", type="integer", example=2),
      *         @OA\Property(property="department_id", type="integer", example=3),
