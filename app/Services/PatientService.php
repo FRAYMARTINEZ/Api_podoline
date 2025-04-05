@@ -25,6 +25,10 @@ class PatientService
         return $this->patientRepository->find($id);
     }
 
+    public function searchPatientAttention(int $search, string $type =""): ?Patient{
+        return $this->patientRepository->searchPatientAttention($search, $type);
+    }
+
     public function createPatient(array $data): Patient
     {
         return $this->patientRepository->create($data);

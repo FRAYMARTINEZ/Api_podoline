@@ -48,6 +48,24 @@ class PatientController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *     path="/patients/{search}/{type}",
+     *     tags={"Pacientes"},
+     *     security={{"bearerAuth":{}}},
+     *     summary="Obtener un paciente por ID",
+     *     @OA\Parameter(name="search", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="type", in="path", required=false, @OA\Schema(type="string"), description="Si deseas consultar por celular debes ingresar en este campo cellphone, si es cédula dejarlo vacio"),
+     *     @OA\Response(response=200, description="Paciente encontrado"),
+     *     @OA\Response(response=404, description="Paciente no encontrado")
+     * )
+     */
+    public function searchPatientAttention(int $search, string $type=""): JsonResponse
+    {
+        $patient = $this->patientService->searchPatientAttention($search, $type);
+        return $patient ? response()->json($patient) : response()->json(['error' => 'Paciente no encontrado'], 404);
+    }
+
+    /**
      * @OA\Post(
      *     path="/patients",
      *     tags={"Pacientes"},

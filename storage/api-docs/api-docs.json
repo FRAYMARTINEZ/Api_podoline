@@ -421,12 +421,12 @@
                                     "email": {
                                         "type": "string",
                                         "format": "email",
-                                        "example": "john.doe@example.com"
+                                        "example": "admin@example.com"
                                     },
                                     "password": {
                                         "type": "string",
                                         "format": "password",
-                                        "example": "password123"
+                                        "example": "password"
                                     }
                                 },
                                 "type": "object"
@@ -1079,6 +1079,47 @@
                 "responses": {
                     "200": {
                         "description": "Paciente eliminado"
+                    },
+                    "404": {
+                        "description": "Paciente no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/patients/{search}/{type}": {
+            "get": {
+                "tags": [
+                    "Pacientes"
+                ],
+                "summary": "Obtener un paciente por ID",
+                "operationId": "6da713cf5ee0137ff4d0d6e04af9a1cf",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "Si deseas consultar por celular debes ingresar en este campo cellphone, si es cédula dejarlo vacio",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paciente encontrado"
                     },
                     "404": {
                         "description": "Paciente no encontrado"

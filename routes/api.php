@@ -18,8 +18,8 @@ Route::group([
     'middleware' => ['api', 'handle_exceptions'],
     'prefix' => 'auth'
 ], function ($router) {
-    $router->post('/register', [AuthController::class, 'register'])->name('register');
-    $router->post('/login', [AuthController::class, 'login'])->middleware(['auth:sanctum', 'role:Administrador'])->name('login');
+    $router->post('/register', [AuthController::class, 'register'])->middleware(['auth:sanctum', 'role:Administrador'])->name('register');
+    $router->post('/login', [AuthController::class, 'login'])->name('login');
     $router->post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
     $router->post('/refresh', [AuthController::class, 'refresh'])->middleware('auth:sanctum')->name('refresh');
     $router->get('/getUserCurrent', [AuthController::class, 'getUserCurrent'])->middleware('auth:sanctum')->name('getUserCurrent');
@@ -33,6 +33,7 @@ Route::group([
     $router->post('/', [PatientController::class, 'store'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1', 'role:Profesional2'])->name('patients.store');
     $router->put('/{id}', [PatientController::class, 'update'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1'])->name('patients.update');
     $router->delete('/{id}', [PatientController::class, 'destroy'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1'])->name('patients.destroy');
+    $router->get('/{search}/{type?}', [PatientController::class, 'searchPatientAttention'])->middleware(['auth:sanctum'])->name('patients.searchPatientAttention');
 });
 
 Route::group([

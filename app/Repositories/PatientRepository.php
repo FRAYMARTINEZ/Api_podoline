@@ -10,12 +10,25 @@ class PatientRepository implements PatientRepositoryInterface
 {
     public function all(): Collection
     {
-        return Patient::paginate(15); 
+        return Patient::paginate(15);
     }
 
     public function find(int $id): ?Patient
     {
         return Patient::with('attentions.images')->findOrFail($id);
+    }
+
+    public function searchPatientAttention(int $search, string $type = ""): ?Patient
+    {
+        $patient = Patient::with('attentions.images');
+
+        if ($type === 'cellphone') {
+            $patient->where('cellphone', $search);
+        } else {
+            $patient->where('number_document', $search);
+        }
+
+        return $patient->first();
     }
 
     public function create(array $data): Patient
