@@ -23,6 +23,7 @@ class AttentionController extends Controller
      * @OA\Get(
      *     path="/attentions",
      *     tags={"Atención"},
+     *     security={{"bearerAuth":{}}},
      *     summary="Listar todas las atenciones",
      *     @OA\Response(
      *         response=200,
@@ -39,6 +40,7 @@ class AttentionController extends Controller
      * @OA\Post(
      *     path="/attentions",
      *     tags={"Atención"},
+     *     security={{"bearerAuth":{}}},
      *     summary="Crear una atención",
      *     @OA\RequestBody(
      *         required=true,
@@ -78,6 +80,7 @@ class AttentionController extends Controller
      * @OA\Get(
      *     path="/attentions/{id}",
      *     tags={"Atención"},
+     *     security={{"bearerAuth":{}}},
      *     summary="Obtener una atención específica",
      *     @OA\Parameter(
      *         name="id",
@@ -101,6 +104,7 @@ class AttentionController extends Controller
      * @OA\Post(
      *     path="/attentions/{id}",
      *     tags={"Atención"},
+     *     security={{"bearerAuth":{}}},
      *     summary="Actualizar una atención",
      *     @OA\Parameter(
      *         name="id",
@@ -147,6 +151,7 @@ class AttentionController extends Controller
      * @OA\Delete(
      *     path="/attentions/{id}",
      *     tags={"Atención"},
+     *     security={{"bearerAuth":{}}},
      *     summary="Eliminar una atención",
      *     @OA\Parameter(
      *         name="id",

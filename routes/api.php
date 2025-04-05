@@ -19,40 +19,38 @@ Route::group([
     'prefix' => 'auth'
 ], function ($router) {
     $router->post('/register', [AuthController::class, 'register'])->name('register');
-    $router->post('/login', [AuthController::class, 'login'])->name('login');
+    $router->post('/login', [AuthController::class, 'login'])->middleware(['auth:sanctum', 'role:Administrador'])->name('login');
     $router->post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
     $router->post('/refresh', [AuthController::class, 'refresh'])->middleware('auth:sanctum')->name('refresh');
     $router->get('/getUserCurrent', [AuthController::class, 'getUserCurrent'])->middleware('auth:sanctum')->name('getUserCurrent');
 });
 
 Route::group([
-    // 'middleware' => ['api', 'handle_exceptions'],
     'prefix' => 'patients'
 ], function ($router) {
-    $router->get('/', [PatientController::class, 'index'])->name('patients.index');
-    $router->get('/{id}', [PatientController::class, 'show'])->name('patients.show');
-    $router->post('/', [PatientController::class, 'store'])->name('patients.store');
-    $router->put('/{id}', [PatientController::class, 'update'])->name('patients.update');
-    $router->delete('/{id}', [PatientController::class, 'destroy'])->name('patients.destroy');
+    $router->get('/', [PatientController::class, 'index'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1', 'role:Profesional2'])->name('patients.index');
+    $router->get('/{id}', [PatientController::class, 'show'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1', 'role:Profesional2'])->name('patients.show');
+    $router->post('/', [PatientController::class, 'store'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1', 'role:Profesional2'])->name('patients.store');
+    $router->put('/{id}', [PatientController::class, 'update'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1'])->name('patients.update');
+    $router->delete('/{id}', [PatientController::class, 'destroy'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1'])->name('patients.destroy');
 });
 
 Route::group([
-    // 'middleware' => ['api', 'handle_exceptions'],
     'prefix' => 'consulting-offices'
 ], function ($router) {
-    $router->get('/', [ConsultingOfficeController::class, 'index'])->name('consulting-offices.index');
-    $router->get('/{id}', [ConsultingOfficeController::class, 'show'])->name('consulting-offices.show');
-    $router->post('/', [ConsultingOfficeController::class, 'store'])->name('consulting-offices.store');
-    $router->put('/{id}', [ConsultingOfficeController::class, 'update'])->name('consulting-offices.update');
-    $router->delete('/{id}', [ConsultingOfficeController::class, 'destroy'])->name('consulting-offices.destroy');
+    $router->get('/', [ConsultingOfficeController::class, 'index'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1', 'role:Profesional2'])->name('consulting-offices.index');
+    $router->get('/{id}', [ConsultingOfficeController::class, 'show'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1', 'role:Profesional2'])->name('consulting-offices.show');
+    $router->post('/', [ConsultingOfficeController::class, 'store'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1', 'role:Profesional2'])->name('consulting-offices.store');
+    $router->put('/{id}', [ConsultingOfficeController::class, 'update'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1'])->name('consulting-offices.update');
+    $router->delete('/{id}', [ConsultingOfficeController::class, 'destroy'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1'])->name('consulting-offices.destroy');
 });
 
 Route::group([
     'middleware' => ['api', 'handle_exceptions'],
     'prefix' => 'data-defaults'
 ], function ($router) {
-    $router->get('/', [DefaultController::class, 'dataDefault'])->name('data-defaults.dataDefault');
-    $router->get('/{id}/cities', [DefaultController::class, 'findCity'])->name('data-defaults.findCity');
+    $router->get('/', [DefaultController::class, 'dataDefault'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1', 'role:Profesional2'])->name('data-defaults.dataDefault');
+    $router->get('/{id}/cities', [DefaultController::class, 'findCity'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1', 'role:Profesional2'])->name('data-defaults.findCity');
 });
 
 
@@ -60,11 +58,11 @@ Route::group([
     'middleware' => ['api', 'handle_exceptions'],
     'prefix' => 'attentions'
 ], function ($router) {
-    $router->get('/', [AttentionController::class, 'index'])->name('attentions.index');
-    $router->get('/{id}', [AttentionController::class, 'show'])->name('attentions.show');
-    $router->post('/', [AttentionController::class, 'store'])->name('attentions.store');
-    $router->put('/{id}', [AttentionController::class, 'update'])->name('attentions.update');
-    $router->delete('/{id}', [AttentionController::class, 'destroy'])->name('attentions.destroy');
+    $router->get('/', [AttentionController::class, 'index'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1', 'role:Profesional2'])->name('attentions.index');
+    $router->get('/{id}', [AttentionController::class, 'show'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1', 'role:Profesional2'])->name('attentions.show');
+    $router->post('/', [AttentionController::class, 'store'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1', 'role:Profesional2'])->name('attentions.store');
+    $router->put('/{id}', [AttentionController::class, 'update'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1'])->name('attentions.update');
+    $router->delete('/{id}', [AttentionController::class, 'destroy'])->middleware(['auth:sanctum', 'role:Administrador', 'role:Profesional1'])->name('attentions.destroy');
 });
 
 /*

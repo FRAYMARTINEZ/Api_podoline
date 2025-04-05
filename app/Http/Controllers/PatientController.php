@@ -20,6 +20,7 @@ class PatientController extends Controller
      * @OA\Get(
      *     path="/patients",
      *     tags={"Pacientes"},
+     *     security={{"bearerAuth":{}}},
      *     summary="Obtener todos los pacientes",
      *     @OA\Response(response=200, description="Lista de pacientes")
      * )
@@ -33,6 +34,7 @@ class PatientController extends Controller
      * @OA\Get(
      *     path="/patients/{id}",
      *     tags={"Pacientes"},
+     *     security={{"bearerAuth":{}}},
      *     summary="Obtener un paciente por ID",
      *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\Response(response=200, description="Paciente encontrado"),
@@ -49,6 +51,7 @@ class PatientController extends Controller
      * @OA\Post(
      *     path="/patients",
      *     tags={"Pacientes"},
+     *     security={{"bearerAuth":{}}},
      *     summary="Crear un nuevo paciente",
      *     @OA\RequestBody(required=true, @OA\JsonContent(
      *         required={"name", "last_name", "type_document", "number_document", "date_of_birth", "email", "cellphone"},
@@ -75,6 +78,7 @@ class PatientController extends Controller
      *     path="/patients/{id}",
      *     summary="Actualizar un paciente",
      *     tags={"Pacientes"},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\RequestBody(required=true, @OA\JsonContent(
      *         @OA\Property(property="name", type="string"),
@@ -100,6 +104,7 @@ class PatientController extends Controller
      * @OA\Delete(
      *     path="/patients/{id}",
      *     tags={"Pacientes"},
+     *     security={{"bearerAuth":{}}},
      *     summary="Eliminar un paciente",
      *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\Response(response=200, description="Paciente eliminado"),

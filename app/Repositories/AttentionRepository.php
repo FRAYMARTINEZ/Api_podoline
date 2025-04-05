@@ -19,7 +19,7 @@ class AttentionRepository implements AttentionRepositoryInterface
     use ImageTrait;
     public function all()
     {
-        return Attention::with('images')->get();
+        return Attention::with('images')->paginate(15); 
     }
 
     public function find(int $id)

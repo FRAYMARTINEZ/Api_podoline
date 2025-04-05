@@ -20,6 +20,7 @@ class ConsultingOfficeController extends Controller
      *     path="/consulting-offices",
      *     summary="List all consulting offices",
      *     tags={"Consultorios"},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(response=200, description="Success"),
      * )
      */
@@ -33,6 +34,7 @@ class ConsultingOfficeController extends Controller
      *     path="/consulting-offices",
      *     summary="Create a consulting office",
      *     tags={"Consultorios"},
+     *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *     required=true,
      *     @OA\JsonContent(
@@ -58,6 +60,7 @@ class ConsultingOfficeController extends Controller
      *     path="/consulting-offices/{id}",
      *     summary="Get a consulting office",
      *     tags={"Consultorios"},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\Response(response=200, description="Success"),
      * )
@@ -72,6 +75,7 @@ class ConsultingOfficeController extends Controller
      *     path="/consulting-offices/{id}",
      *     summary="Update a consulting office",
      *     tags={"Consultorios"},
+     *     security={{"bearerAuth":{}}},
      * @OA\RequestBody(
      *     required=true,
      *     @OA\JsonContent(
@@ -97,6 +101,7 @@ class ConsultingOfficeController extends Controller
      *     path="/consulting-offices/{id}",
      *     summary="Delete a consulting office",
      *     tags={"Consultorios"},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\Response(response=204, description="Deleted"),
      * )

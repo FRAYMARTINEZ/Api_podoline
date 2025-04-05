@@ -11,6 +11,299 @@
         }
     ],
     "paths": {
+        "/attentions": {
+            "get": {
+                "tags": [
+                    "Atención"
+                ],
+                "summary": "Listar todas las atenciones",
+                "operationId": "a0204bd0f478d1f1804a652f27e8880d",
+                "responses": {
+                    "200": {
+                        "description": "Listado exitoso"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Atención"
+                ],
+                "summary": "Crear una atención",
+                "operationId": "3396e70c9c64fb82e2a85e7f77b1ebde",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "patient_id",
+                                    "appointment_date",
+                                    "shoe_size",
+                                    "footstep_type_left",
+                                    "footstep_type_right",
+                                    "foot_type_left",
+                                    "foot_type_right",
+                                    "heel_type_left",
+                                    "heel_type_right"
+                                ],
+                                "properties": {
+                                    "patient_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "appointment_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-04-04"
+                                    },
+                                    "shoe_size": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 42
+                                    },
+                                    "footstep_type_left": {
+                                        "type": "string",
+                                        "example": "Pronador"
+                                    },
+                                    "footstep_type_right": {
+                                        "type": "string",
+                                        "example": "Supinador"
+                                    },
+                                    "foot_type_left": {
+                                        "type": "string",
+                                        "example": "Plano"
+                                    },
+                                    "foot_type_right": {
+                                        "type": "string",
+                                        "example": "Normal"
+                                    },
+                                    "heel_type_left": {
+                                        "type": "string",
+                                        "example": "Neutro"
+                                    },
+                                    "heel_type_right": {
+                                        "type": "string",
+                                        "example": "Pronador"
+                                    },
+                                    "observations": {
+                                        "type": "string",
+                                        "example": "Paciente presenta leve desviación..."
+                                    },
+                                    "back_standing_up_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "back_45_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "back_toes_up_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "from_chaplin_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "from_chaplin_toes_up_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "with_insoles_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Atención creada exitosamente"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/attentions/{id}": {
+            "get": {
+                "tags": [
+                    "Atención"
+                ],
+                "summary": "Obtener una atención específica",
+                "operationId": "785d3dfb4d301e0d404049b8bc602d55",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la atención",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalle de la atención"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Atención"
+                ],
+                "summary": "Actualizar una atención",
+                "operationId": "c71ec9b202ae6a5e3dbae8d346ec367d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la atención a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "patient_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "appointment_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-04-04"
+                                    },
+                                    "shoe_size": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 42
+                                    },
+                                    "footstep_type_left": {
+                                        "type": "string",
+                                        "example": "Pronador"
+                                    },
+                                    "footstep_type_right": {
+                                        "type": "string",
+                                        "example": "Supinador"
+                                    },
+                                    "foot_type_left": {
+                                        "type": "string",
+                                        "example": "Plano"
+                                    },
+                                    "foot_type_right": {
+                                        "type": "string",
+                                        "example": "Normal"
+                                    },
+                                    "heel_type_left": {
+                                        "type": "string",
+                                        "example": "Neutro"
+                                    },
+                                    "heel_type_right": {
+                                        "type": "string",
+                                        "example": "Pronador"
+                                    },
+                                    "observations": {
+                                        "type": "string",
+                                        "example": "Paciente presenta leve desviación..."
+                                    },
+                                    "back_standing_up_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "back_45_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "back_toes_up_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "from_chaplin_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "from_chaplin_toes_up_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "with_insoles_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "_method": {
+                                        "type": "string",
+                                        "example": "PUT"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Atención actualizada correctamente"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Atención"
+                ],
+                "summary": "Eliminar una atención",
+                "operationId": "61a747753c09bb7fb78bb620c6ef475b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la atención a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Eliminación exitosa"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/auth/register": {
             "post": {
                 "tags": [
@@ -295,7 +588,12 @@
                     "200": {
                         "description": "Success"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -309,12 +607,17 @@
                         "application/json": {
                             "schema": {
                                 "required": [
+                                    "name",
                                     "city_id",
                                     "country_id",
                                     "department_id",
                                     "address"
                                 ],
                                 "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Consultorio"
+                                    },
                                     "city_id": {
                                         "type": "integer",
                                         "example": 1
@@ -341,7 +644,12 @@
                     "201": {
                         "description": "Created"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/consulting-offices/{id}": {
@@ -365,7 +673,12 @@
                     "200": {
                         "description": "Success"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -379,12 +692,17 @@
                         "application/json": {
                             "schema": {
                                 "required": [
+                                    "name",
                                     "city_id",
                                     "country_id",
                                     "department_id",
                                     "address"
                                 ],
                                 "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Consultorio XYZ"
+                                    },
                                     "city_id": {
                                         "type": "integer",
                                         "example": 1
@@ -411,7 +729,12 @@
                     "200": {
                         "description": "Updated"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -433,7 +756,12 @@
                     "204": {
                         "description": "Deleted"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/data-defaults": {
@@ -474,7 +802,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/data-defaults/{department_id}/cities": {
@@ -543,7 +876,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/patients": {
@@ -557,7 +895,12 @@
                     "200": {
                         "description": "Lista de pacientes"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -613,7 +956,12 @@
                     "201": {
                         "description": "Paciente creado"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/patients/{id}": {
@@ -640,7 +988,12 @@
                     "404": {
                         "description": "Paciente no encontrado"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -700,7 +1053,12 @@
                     "404": {
                         "description": "Paciente no encontrado"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -725,7 +1083,12 @@
                     "404": {
                         "description": "Paciente no encontrado"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },
@@ -740,6 +1103,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Atención",
+            "description": "Atención"
+        },
         {
             "name": "Autenticación",
             "description": "Autenticación"

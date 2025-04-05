@@ -21,6 +21,7 @@ class DefaultController extends Controller
      *     path="/data-defaults",
      *     summary="Obtener datos por defecto",
      *     tags={"Default"},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="Datos por defecto obtenidos exitosamente",
@@ -43,6 +44,7 @@ class DefaultController extends Controller
      *     path="/data-defaults/{department_id}/cities",
      *     summary="Buscar ciudades por departamento",
      *     tags={"Default"},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="department_id",
      *         in="path",
