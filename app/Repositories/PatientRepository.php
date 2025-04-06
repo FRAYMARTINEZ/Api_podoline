@@ -11,7 +11,7 @@ class PatientRepository implements PatientRepositoryInterface
 {
     public function all()
     {
-        return Patient::paginate(15);
+        return Patient::withTrashed()->paginate(15);
     }
 
     public function find(int $id): ?Patient

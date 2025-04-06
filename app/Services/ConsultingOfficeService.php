@@ -15,7 +15,7 @@ class ConsultingOfficeService
         $this->consultingOfficeRepository = $consultingOfficeRepository;
     }
 
-    public function all(): Collection
+    public function all()
     {
         return $this->consultingOfficeRepository->all();
     }

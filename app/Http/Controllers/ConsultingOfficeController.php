@@ -26,7 +26,7 @@ class ConsultingOfficeController extends Controller
      */
     public function index()
     {
-        return response()->json($this->service->all());
+        return $this->service->all();
     }
 
     /**

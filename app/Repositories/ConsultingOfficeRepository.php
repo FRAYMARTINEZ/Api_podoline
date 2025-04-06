@@ -9,7 +9,7 @@ class ConsultingOfficeRepository implements ConsultingOfficeRepositoryInterface
 {
     public function all()
     {
-        return ConsultingOffice::paginate(15);
+        return ConsultingOffice::withTrashed()->paginate(15);
     }
 
     public function find($id)
