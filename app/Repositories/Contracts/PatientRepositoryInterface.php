@@ -3,11 +3,11 @@
 namespace App\Repositories\Contracts;
 
 use App\Models\Patient;
-use Illuminate\Database\Eloquent\Collection;
+
 
 interface PatientRepositoryInterface
 {
-    public function all(): Collection;
+    public function all();
     public function find(int $id): ?Patient;
     public function searchPatientAttention(int $search, string $type=""): ?Patient;
     public function create(array $data): Patient;

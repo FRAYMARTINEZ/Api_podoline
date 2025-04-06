@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Repositories\PatientRepository;
 use App\Models\Patient;
-use Illuminate\Database\Eloquent\Collection;
+
 
 class PatientService
 {
@@ -15,7 +15,7 @@ class PatientService
         $this->patientRepository = $patientRepository;
     }
 
-    public function getAllPatients(): Collection
+    public function getAllPatients()
     {
         return $this->patientRepository->all();
     }

@@ -4,11 +4,12 @@ namespace App\Repositories;
 
 use App\Models\Patient;
 use App\Repositories\Contracts\PatientRepositoryInterface;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class PatientRepository implements PatientRepositoryInterface
 {
-    public function all(): Collection
+    public function all()
     {
         return Patient::paginate(15);
     }
