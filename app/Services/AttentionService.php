@@ -16,7 +16,7 @@ class AttentionService
         $this->attentionRepository = $attentionRepository;
     }
 
-    public function all(): Collection
+    public function all()
     {
         return $this->attentionRepository->all();
     }
