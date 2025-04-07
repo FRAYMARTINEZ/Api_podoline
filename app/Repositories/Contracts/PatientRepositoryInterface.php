@@ -13,4 +13,5 @@ interface PatientRepositoryInterface
     public function create(array $data): Patient;
     public function update(int $id, array $data): ?Patient;
     public function delete(int $id): bool;
+    public function restore(int $id): ?Patient;
 }

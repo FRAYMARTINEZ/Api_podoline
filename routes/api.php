@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConsultingOfficeController;
 use App\Http\Controllers\DefaultController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\UserContoller;
+use App\Http\Controllers\UserController;
 use App\Models\Attention;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +28,17 @@ Route::group([
 });
 
 Route::group([
+    'prefix' => 'users'
+], function ($router) {
+    $router->get('/', [UserController::class, 'index'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1|Profesional2'])->name('users.index');
+    $router->put('/{id}', [UserController::class, 'update'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('users.update');
+    $router->delete('/{id}', [UserController::class, 'destroy'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('users.destroy');
+    $router->get('/{id}', [UserController::class, 'show'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('users.show');
+    $router->put('/restore/{id}', [UserController::class, 'restore'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('users.restore');
+});
+
+
+Route::group([
     'prefix' => 'patients'
 ], function ($router) {
     $router->get('/', [PatientController::class, 'index'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1|Profesional2'])->name('patients.index');
@@ -34,6 +47,7 @@ Route::group([
     $router->put('/{id}', [PatientController::class, 'update'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('patients.update');
     $router->delete('/{id}', [PatientController::class, 'destroy'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('patients.destroy');
     $router->get('/{search}/{type?}', [PatientController::class, 'searchPatientAttention'])->middleware(['auth:sanctum'])->name('patients.searchPatientAttention');
+    $router->put('/restore/{id}', [PatientController::class, 'restore'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('patients.restore');
 });
 
 Route::group([
@@ -44,6 +58,7 @@ Route::group([
     $router->post('/', [ConsultingOfficeController::class, 'store'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1|Profesional2'])->name('consulting-offices.store');
     $router->put('/{id}', [ConsultingOfficeController::class, 'update'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('consulting-offices.update');
     $router->delete('/{id}', [ConsultingOfficeController::class, 'destroy'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('consulting-offices.destroy');
+    $router->put('/restore/{id}', [ConsultingOfficeController::class, 'restore'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('consulting-offices.restore');
 });
 
 Route::group([
@@ -64,6 +79,7 @@ Route::group([
     $router->post('/', [AttentionController::class, 'store'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1|Profesional2'])->name('attentions.store');
     $router->put('/{id}', [AttentionController::class, 'update'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('attentions.update');
     $router->delete('/{id}', [AttentionController::class, 'destroy'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('attentions.destroy');
+    $router->put('/restore/{id}', [ConsultingOfficeController::class, 'restore'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('attentions.restore');
 });
 
 /*

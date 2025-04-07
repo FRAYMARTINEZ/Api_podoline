@@ -39,4 +39,8 @@ class ConsultingOfficeService
     {
         return $this->consultingOfficeRepository->delete($id);
     }
+    public function restore(int $id): ?ConsultingOffice
+    {
+        return $this->consultingOfficeRepository->restore($id);
+    }
 }

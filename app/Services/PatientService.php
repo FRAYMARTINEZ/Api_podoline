@@ -43,4 +43,9 @@ class PatientService
     {
         return $this->patientRepository->delete($id);
     }
+
+    public function restore(int $id): ?Patient
+    {
+        return $this->patientRepository->restore($id);
+    }
 }

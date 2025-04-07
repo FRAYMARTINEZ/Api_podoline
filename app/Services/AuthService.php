@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
 
 
@@ -14,11 +15,34 @@ class AuthService
         $this->userRepository = $userRepository;
     }
 
+    public function all()
+    {
+        return $this->userRepository->all();
+    }
+
+
     public function register(array $data)
     {
         return $this->userRepository->create($data);
     }
+    public function update(int $id, array $data): ?User
+    {
+        return $this->userRepository->update($id, $data);
+    }
 
+    public function find(int $id): User
+    {
+        return $this->userRepository->find($id);
+    }
+
+    public function delete(int $id): bool
+    {
+        return $this->userRepository->delete($id);
+    }
+    public function restore(int $id): ?User
+    {
+        return $this->userRepository->restore($id);
+    }
     public function login(array $credentials, $ip, $device_name)
     {
         $credentials = request(['email', 'password']);

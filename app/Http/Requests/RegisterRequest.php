@@ -21,14 +21,32 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'office_id' => 'required|integer|exists:consulting_offices,id',
-            'role' => 'required|string|max:20',
-            'name' => 'required|string|max:255',
-            'full_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|confirmed|min:8',
-        ];
+
+        if ($this->isMethod('post')) {
+            return [
+                'office_id' => 'required|integer|exists:consulting_offices,id',
+                'role' => 'required|string|max:20',
+                'name' => 'required|string|max:255',
+                'full_name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|string|confirmed|min:8',
+            ];
+        }
+
+        if ($this->isMethod('patch') || $this->isMethod('put')) {
+            $userId = $this->route('id'); // o 'id', depende de cómo se llama el parámetro en la ruta
+
+            return [
+                'office_id' => 'sometimes|required|integer|exists:consulting_offices,id',
+                'role' => 'sometimes|required|string|max:20',
+                'name' => 'sometimes|required|string|max:255',
+                'full_name' => 'sometimes|required|string|max:255',
+                'email' => 'sometimes|required|email|unique:users,email,' . $userId,
+                'password' => 'sometimes|required|string|confirmed|min:8',
+            ];
+        }
+
+        return [];
     }
 
 

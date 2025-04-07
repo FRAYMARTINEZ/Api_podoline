@@ -33,4 +33,15 @@ class ConsultingOfficeRepository implements ConsultingOfficeRepositoryInterface
     {
         return ConsultingOffice::destroy($id);
     }
+
+    public function restore(int $id): ?ConsultingOffice
+    {
+        $consultingOffice = ConsultingOffice::withTrashed()->findOrFail($id);
+
+        if ($consultingOffice->trashed()) {
+            $consultingOffice->restore();
+        }
+
+        return $consultingOffice;
+    }
 }

@@ -19,7 +19,7 @@ class AttentionRepository implements AttentionRepositoryInterface
     use ImageTrait;
     public function all()
     {
-        return Attention::withTrashed()->with('images')->paginate(15); 
+        return Attention::withTrashed()->with('images')->paginate(15);
     }
 
     public function find(int $id)
@@ -161,5 +161,16 @@ class AttentionRepository implements AttentionRepositoryInterface
     public function delete(int $id)
     {
         return Attention::destroy($id);
+    }
+
+    public function restore(int $id): ?Attention
+    {
+        $attention = Attention::withTrashed()->findOrFail($id);
+
+        if ($attention->trashed()) {
+            $attention->restore();
+        }
+
+        return $attention;
     }
 }

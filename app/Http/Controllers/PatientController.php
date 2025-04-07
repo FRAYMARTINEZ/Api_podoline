@@ -59,7 +59,7 @@ class PatientController extends Controller
      *     @OA\Response(response=404, description="Paciente no encontrado")
      * )
      */
-    public function searchPatientAttention(int $search, string $type=""): JsonResponse
+    public function searchPatientAttention(int $search, string $type = ""): JsonResponse
     {
         $patient = $this->patientService->searchPatientAttention($search, $type);
         return $patient ? response()->json($patient) : response()->json(['error' => 'Paciente no encontrado'], 404);
@@ -125,7 +125,7 @@ class PatientController extends Controller
      *     security={{"bearerAuth":{}}},
      *     summary="Eliminar un paciente",
      *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
-     *     @OA\Response(response=200, description="Paciente eliminado"),
+     *     @OA\Response(response=204, description="Paciente eliminado"),
      *     @OA\Response(response=404, description="Paciente no encontrado")
      * )
      */
@@ -133,6 +133,24 @@ class PatientController extends Controller
     {
         return $this->patientService->deletePatient($id)
             ? response()->json(['message' => 'Paciente eliminado'])
+            : response()->json(['error' => 'Paciente no encontrado'], 404);
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/patients/restore/{id}",
+     *     tags={"Pacientes"},
+     *     security={{"bearerAuth":{}}},
+     *     summary="Activar un paciente",
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Paciente activo"),
+     *     @OA\Response(response=404, description="Paciente no encontrado")
+     * )
+     */
+    public function restore(int $id): JsonResponse
+    {
+        return $this->patientService->restore($id)
+            ? response()->json(['message' => 'Paciente activo'])
             : response()->json(['error' => 'Paciente no encontrado'], 404);
     }
 }

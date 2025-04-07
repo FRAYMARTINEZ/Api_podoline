@@ -40,4 +40,9 @@ class AttentionService
     {
         return $this->attentionRepository->delete($id);
     }
+    public function restore(int $id): ?Attention
+    {
+        return $this->attentionRepository->restore($id);
+    }
+    
 }

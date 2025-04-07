@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
+use App\Models\Attention;
 use Illuminate\Http\Request;
 
 interface AttentionRepositoryInterface
@@ -11,4 +12,5 @@ interface AttentionRepositoryInterface
     public function store(Request $data);
     public function update(int $id, Request $data);
     public function delete(int $id);
+    public function restore(int $id): ?Attention;
 }

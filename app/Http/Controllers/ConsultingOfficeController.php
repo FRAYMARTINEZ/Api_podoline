@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreConsultingOfficeRequest;
 use App\Http\Requests\UpdateConsultingOfficeRequest;
 use App\Services\ConsultingOfficeService;
+use Illuminate\Http\JsonResponse;
 
 class ConsultingOfficeController extends Controller
 {
@@ -108,7 +109,26 @@ class ConsultingOfficeController extends Controller
      */
     public function destroy($id)
     {
-        $this->service->delete($id);
-        return response()->json(null, 204);
+        $this->service->delete($id)
+        ? response()->json(['message' => 'Consulta eliminado'])
+        : response()->json(['error' => 'Consulta no encontrado'], 404);
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/consulting-offices/restore/{id}",
+     *     tags={"Consultorios"},
+     *     security={{"bearerAuth":{}}},
+     *     summary="Activar un consultorio",
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=204, description="Consultorio activo"),
+     *     @OA\Response(response=404, description="Consultorio no encontrado")
+     * )
+     */
+    public function restore(int $id): JsonResponse
+    {
+        return $this->service->restore($id)
+            ? response()->json(['message' => 'Consultorio activo'])
+            : response()->json(['error' => 'Consultorio no encontrado'], 404);
     }
 }

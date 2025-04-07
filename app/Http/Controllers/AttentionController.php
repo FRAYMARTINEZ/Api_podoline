@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAttentionRequest;
 use App\Http\Requests\UpdateAttentionRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Services\AttentionService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AttentionController extends Controller
@@ -161,13 +162,32 @@ class AttentionController extends Controller
      *         @OA\Schema(type="integer")
      *     ),
      *     @OA\Response(
-     *         response=200,
+     *         response=204,
      *         description="Eliminación exitosa"
      *     )
      * )
      */
     public function destroy(int $id)
     {
-        return $this->serviceAttention->delete($id);
+        return $this->serviceAttention->delete($id) ? response()->json(['message' => 'Atención eliminado'])
+        : response()->json(['error' => 'Atención no encontrado'], 404)
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/attentions/restore/{id}",
+     *     tags={"Atención"},
+     *     security={{"bearerAuth":{}}},
+     *     summary="Activar un consultorio",
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Atención activa"),
+     *     @OA\Response(response=404, description="Atención no encontrado")
+     * )
+     */
+    public function restore(int $id): JsonResponse
+    {
+        return $this->serviceAttention->restore($id)
+            ? response()->json(['message' => 'Atención activa'])
+            : response()->json(['error' => 'Atención no encontrado'], 404);
     }
 }

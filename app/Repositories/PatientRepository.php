@@ -51,4 +51,15 @@ class PatientRepository implements PatientRepositoryInterface
         $patient = Patient::find($id);
         return $patient ? $patient->delete() : false;
     }
+
+    public function restore(int $id): ?Patient
+    {
+        $patient = Patient::withTrashed()->findOrFail($id);
+
+        if ($patient->trashed()) {
+            $patient->restore();
+        }
+
+        return $patient;
+    }
 }
