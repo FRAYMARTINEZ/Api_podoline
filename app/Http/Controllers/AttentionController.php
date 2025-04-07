@@ -170,7 +170,7 @@ class AttentionController extends Controller
     public function destroy(int $id)
     {
         return $this->serviceAttention->delete($id) ? response()->json(['message' => 'Atención eliminado'])
-        : response()->json(['error' => 'Atención no encontrado'], 404)
+        : response()->json(['error' => 'Atención no encontrado'], 404);
     }
 
     /**
