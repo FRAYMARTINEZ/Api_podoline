@@ -5,8 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConsultingOfficeController;
 use App\Http\Controllers\DefaultController;
 use App\Http\Controllers\PatientController;
-use App\Http\Controllers\UserContoller;
+//use App\Http\Controllers\UserContoller;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\DepartmentsController;
+use App\Http\Controllers\CitiesController;
 use App\Models\Attention;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +40,7 @@ Route::group([
     $router->put('/restore/{id}', [UserController::class, 'restore'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('users.restore');
 });
 
-
+//el api
 Route::group([
     'prefix' => 'patients'
 ], function ($router) {
@@ -59,6 +62,14 @@ Route::group([
     $router->put('/{id}', [ConsultingOfficeController::class, 'update'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('consulting-offices.update');
     $router->delete('/{id}', [ConsultingOfficeController::class, 'destroy'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('consulting-offices.destroy');
     $router->put('/restore/{id}', [ConsultingOfficeController::class, 'restore'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('consulting-offices.restore');
+});
+
+Route::group([
+    'prefix' => 'territories'
+], function ($router) {
+    $router->get('/countries', [CountryController::class, 'index'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1|Profesional2'])->name('countries.index');
+    $router->get('/departments', [DepartmentsController::class, 'index'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1|Profesional2'])->name('departments.index');
+    $router->get('/cities', [CitiesController::class, 'index'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1|Profesional2'])->name('cities.index');
 });
 
 Route::group([
