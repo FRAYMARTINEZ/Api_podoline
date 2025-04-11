@@ -22,6 +22,7 @@ class StoreConsultingOfficeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => 'required|string|max:255',
             'city_id' => 'required|integer|exists:cities,id',
             'country_id' => 'required|integer|exists:countries,id',
             'department_id' => 'required|integer|exists:departments,id',

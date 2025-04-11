@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\ConsultingOffice;
 use App\Repositories\Contracts\ConsultingOfficeRepositoryInterface;
+use Illuminate\Support\Facades\Log;
 
 class ConsultingOfficeRepository implements ConsultingOfficeRepositoryInterface
 {
@@ -19,7 +20,14 @@ class ConsultingOfficeRepository implements ConsultingOfficeRepositoryInterface
 
     public function create(array $data)
     {
-        return ConsultingOffice::create($data);
+        $consultingOffice =  new ConsultingOffice();
+        Log::info('Creating new consulting office', $data);
+        $consultingOffice->name = $data['name'];
+        $consultingOffice->city_id = $data['city_id'];
+        $consultingOffice->country_id = $data['country_id'];
+        $consultingOffice->department_id = $data['department_id'];
+        $consultingOffice->address = $data['address'];
+        return $consultingOffice->save() ? $consultingOffice : null;
     }
 
     public function update($id, array $data)
