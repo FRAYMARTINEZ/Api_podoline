@@ -47,18 +47,11 @@ class UserRepository implements UserRepositoryInterface
     public function getUserCurrent()
     {
         $user = Auth::user();
-
-        if (!$user) {
-            return response()->json([
-                'message' => 'Token inválido o expirado.'
-            ], 401);
-        }
-    
-        $user = $user->with(['roles.permissions'])->where('id', $user->id)->first();
-    
-        return response()->json([
-            'user' => $user
-        ]);
+        return [
+            'user' => $user->with(['roles.permissions'])
+                ->where('id', Auth::id())
+                ->first(),
+        ];
     }
     public function login($credentials, $ip, $device_name)
     {
@@ -73,17 +66,16 @@ class UserRepository implements UserRepositoryInterface
 
         $device = $device_name ?? $ip;
         $token = $user->createToken($device)->plainTextToken;
-        $role =$user->roles->first();
+
         return [
             'token' => $token,
-            'user' => $user,
-            'role' => $role->name 
+            'user' => $user
         ];
     }
 
     public function all()
     {
-        return User::with(['office','roles'])->withTrashed()->paginate(15);
+        return User::with('office')->withTrashed()->paginate(15);
     }
 
     public function find(int $id): ?User

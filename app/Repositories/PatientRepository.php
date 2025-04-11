@@ -6,6 +6,7 @@ use App\Models\Patient;
 use App\Repositories\Contracts\PatientRepositoryInterface;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Log;
 
 class PatientRepository implements PatientRepositoryInterface
 {
@@ -21,15 +22,17 @@ class PatientRepository implements PatientRepositoryInterface
 
     public function searchPatientAttention(int $search, string $type = ""): ?Patient
     {
-        $patient = Patient::with('attentions.images');
+        $patient =  Patient::with('attentions.images')->where('number_document', $search)->first();
+        Log::info($patient);
 
-        if ($type === 'cellphone') {
+
+        /*if ($type === 'cellphone') {
             $patient->where('cellphone', $search);
         } else {
             $patient->where('number_document', $search);
-        }
+        }*/
 
-        return $patient->first();
+        return $patient;
     }
 
     public function create(array $data): Patient
