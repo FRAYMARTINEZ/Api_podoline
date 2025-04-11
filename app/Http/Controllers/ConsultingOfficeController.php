@@ -6,6 +6,8 @@ use App\Http\Requests\StoreConsultingOfficeRequest;
 use App\Http\Requests\UpdateConsultingOfficeRequest;
 use App\Services\ConsultingOfficeService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
 
 class ConsultingOfficeController extends Controller
 {
@@ -77,11 +79,11 @@ class ConsultingOfficeController extends Controller
      *     summary="Update a consulting office",
      *     tags={"Consultorios"},
      *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      * @OA\RequestBody(
      *     required=true,
      *     @OA\JsonContent(
      *         type="object",
-     *         required={"name","city_id", "country_id", "department_id", "address"},
      *         @OA\Property(property="name", type="string", example="Consultorio XYZ"),
      *         @OA\Property(property="city_id", type="integer", example=1),
      *         @OA\Property(property="country_id", type="integer", example=2),
@@ -92,7 +94,7 @@ class ConsultingOfficeController extends Controller
      *     @OA\Response(response=200, description="Updated"),
      * )
      */
-    public function update(UpdateConsultingOfficeRequest $request, $id)
+    public function update(UpdateConsultingOfficeRequest $request,int $id)
     {
         return response()->json($this->service->update($id, $request->validated()));
     }

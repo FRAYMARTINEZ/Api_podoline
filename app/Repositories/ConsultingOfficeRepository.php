@@ -29,19 +29,21 @@ class ConsultingOfficeRepository implements ConsultingOfficeRepositoryInterface
         return $consultingOffice->save() ? $consultingOffice : null;
     }
 
-    public function update($id, array $data)
+    public function update(int $id, array $data)
     {
+        Log::info($data);
+        Log::info($id);
         $consultingOffice = ConsultingOffice::findOrFail($id);
-        $consultingOffice->name = $data['name'];
-        $consultingOffice->city_id = $data['city_id'];
-        $consultingOffice->country_id = $data['country_id'];
-        $consultingOffice->department_id = $data['department_id'];
-        $consultingOffice->address = $data['address'];
+        $consultingOffice->name = $data['name'] ?? $consultingOffice->name;
+        $consultingOffice->city_id = $data['city_id'] ?? $consultingOffice->city_id;
+        $consultingOffice->country_id = $data['country_id'] ?? $consultingOffice->country_id;
+        $consultingOffice->department_id = $data['department_id'] ?? $consultingOffice->department_id;
+        $consultingOffice->address = $data['address'] ?? $consultingOffice->address;
         $consultingOffice->save();
         return $consultingOffice;
     }
 
-    public function delete($id)
+    public function delete(int $id)
     {
         return ConsultingOffice::destroy($id);
     }

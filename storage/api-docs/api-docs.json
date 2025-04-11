@@ -718,6 +718,16 @@
                 ],
                 "summary": "Update a consulting office",
                 "operationId": "e8827b95209ef6a6e7ae49737bfa5381",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -814,7 +824,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "204": {
                         "description": "Consultorio activo"
                     },
                     "404": {

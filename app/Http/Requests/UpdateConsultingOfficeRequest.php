@@ -22,6 +22,7 @@ class UpdateConsultingOfficeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => 'sometimes|required|string|max:255',
             'city_id' => 'sometimes|required|integer|exists:cities,id',
             'country_id' => 'sometimes|required|integer|exists:countries,id',
             'department_id' => 'sometimes|required|integer|exists:departments,id',
