@@ -21,7 +21,6 @@ class ConsultingOfficeRepository implements ConsultingOfficeRepositoryInterface
     public function create(array $data)
     {
         $consultingOffice =  new ConsultingOffice();
-        Log::info('Creating new consulting office', $data);
         $consultingOffice->name = $data['name'];
         $consultingOffice->city_id = $data['city_id'];
         $consultingOffice->country_id = $data['country_id'];
@@ -32,9 +31,14 @@ class ConsultingOfficeRepository implements ConsultingOfficeRepositoryInterface
 
     public function update($id, array $data)
     {
-        $office = ConsultingOffice::findOrFail($id);
-        $office->update($data);
-        return $office;
+        $consultingOffice = ConsultingOffice::findOrFail($id);
+        $consultingOffice->name = $data['name'];
+        $consultingOffice->city_id = $data['city_id'];
+        $consultingOffice->country_id = $data['country_id'];
+        $consultingOffice->department_id = $data['department_id'];
+        $consultingOffice->address = $data['address'];
+        $consultingOffice->save();
+        return $consultingOffice;
     }
 
     public function delete($id)
