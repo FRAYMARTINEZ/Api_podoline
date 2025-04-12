@@ -52,7 +52,7 @@ trait ImageTrait
             
             // Guardar en el storage
             $fullPath = $path . '/' . $filename;
-            Storage::put('public/' . $fullPath, $encodedImage->toString());
+            Storage::put($fullPath, $encodedImage->toString());
             
             // Preparar información para guardar en la base de datos
             $imageInfo = [
@@ -61,7 +61,7 @@ trait ImageTrait
                 'path' => $fullPath,
                 'full_url' => Storage::url($fullPath),
                 'mime_type' => 'image/webp',
-                'size' => Storage::size('public/' . $fullPath),
+                'size' => Storage::size($fullPath),
                 'width' => $img->width(),
                 'height' => $img->height(),
             ];
