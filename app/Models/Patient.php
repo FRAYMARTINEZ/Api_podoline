@@ -18,11 +18,17 @@ class Patient extends Model
         'date_of_birth',
         'email',
         'cellphone',
+        'gender_id'
 
     ];
     public function attentions()
     {
         return $this->belongsToMany(Attention::class, 'attention_patients')
             ->withTimestamps(); // Guarda fechas en la tabla pivote
+    }
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class, 'gender_id');
     }
 }

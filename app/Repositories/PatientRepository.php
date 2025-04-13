@@ -17,7 +17,7 @@ class PatientRepository implements PatientRepositoryInterface
 
     public function find(int $id): ?Patient
     {
-        return Patient::with('attentions.images')->findOrFail($id);
+        return Patient::with(['attentions.images', 'gender'])->findOrFail($id);
     }
 
     public function searchPatientAttention(int $search, string $type = ""): ?Patient
@@ -37,14 +37,32 @@ class PatientRepository implements PatientRepositoryInterface
 
     public function create(array $data): Patient
     {
-        return Patient::create($data);
+        $patient = new Patient();
+        $patient->name = $data['name'] ?? '';
+        $patient->last_name = $data['last_name'] ?? '';
+        $patient->type_document = $data['type_documente'] ?? '';
+        $patient->number_document = $data['number_document'] ?? '';
+        $patient->date_of_birth = $data['date_of_birth'] ?? '';
+        $patient->email = $data['email'] ?? '';
+        $patient->cellphone = $data['cellphone'] ?? '';
+        $patient->gender_id = $data['gender_id'] ?? '';
+        $patient->save();
+        return  $patient;
     }
 
     public function update(int $id, array $data): ?Patient
     {
-        $patient = Patient::find($id);
+        $patient = Patient::findOrFail($id);
         if ($patient) {
-            $patient->update($data);
+            $patient->name = $data['name'] ??  $patient->name;
+            $patient->last_name = $data['last_name'] ??  $patient->last_name;
+            $patient->type_document = $data['type_documente'] ??  $patient->type_document;
+            $patient->number_document = $data['number_document'] ??  $patient->number_document;
+            $patient->date_of_birth = $data['date_of_birth'] ??  $patient->date_of_birth;
+            $patient->email = $data['email'] ??  $patient->email;
+            $patient->cellphone = $data['cellphone'] ??  $patient->cellphone;
+            $patient->gender_id = $data['gender_id'] ??  $patient->gender_id;
+            $patient->save();
         }
         return $patient;
     }

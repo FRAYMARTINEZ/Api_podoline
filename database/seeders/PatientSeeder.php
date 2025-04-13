@@ -15,7 +15,14 @@ class PatientSeeder extends Seeder
     public function run(): void
     {
         $now = Carbon::now();
-
+        DB::table('genders')->insert([
+            [
+                'name' => 'Masculino',
+            ],
+            [
+                'name' => 'Femenino',
+            ],
+        ]);
         DB::table('patients')->insert([
             [
                 'name' => 'Juan',
@@ -28,6 +35,7 @@ class PatientSeeder extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now,
                 'deleted_at' => null,
+                'gender_id'=>1
             ],
             [
                 'name' => 'María',
@@ -40,6 +48,7 @@ class PatientSeeder extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now,
                 'deleted_at' => null,
+                'gender_id'=>2
             ],
             [
                 'name' => 'Carlos',
@@ -52,6 +61,7 @@ class PatientSeeder extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now,
                 'deleted_at' => null,
+                'gender_id'=>1
             ]
         ]);
     }

@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Department;
+use App\Models\Gender;
 use App\Repositories\Contracts\DefaultRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
@@ -16,11 +17,12 @@ class DefaultRepository implements DefaultRepositoryInterface
         $cities = City::select('id', 'name')->get();
         $countries = Country::select('id', 'name')->get();
         $departments =  Department::select('id', 'name')->get();
-
+        $genders = Gender::select('id', 'name')->get();
         return [
             'countries' => $countries,
             'departments' => $departments,
-            'cities' => $cities
+            'cities' => $cities,
+            'genders' => $genders
         ];
     }
 

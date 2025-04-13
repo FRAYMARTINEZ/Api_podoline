@@ -25,14 +25,15 @@ class StorePatientRequest extends FormRequest
         $id = $this->route('id') ?? null;
 
         if ($this->isMethod('post')) {
-           return [
+            return [
                 'name' => 'required|string',
                 'last_name' => 'required|string',
                 'type_document' => 'required|string',
                 'number_document' => 'required|string|unique:patients',
-                'date_of_birth' => 'required|date',
+                'date_of_birth' => 'required|date|before:today',
                 'email' => 'required|email|unique:patients',
                 'cellphone' => 'required|string',
+                'gender_id' => 'required|integer|exists:genders,id'
             ];
         }
 
@@ -43,16 +44,17 @@ class StorePatientRequest extends FormRequest
                 'last_name' => 'sometimes|required|string',
                 'type_document' => 'sometimes|required|string',
                 'number_document' => 'sometimes|required|string|unique:patients,number_document,' . $id,
-                'date_of_birth' => 'sometimes|required|date',
+                'date_of_birth' => 'sometimes|required|date|before:today',
                 'email' => 'sometimes|required|email|unique:patients,email,' . $id,
-                'cellphone' => 'sometimes|required|string'
+                'cellphone' => 'sometimes|required|string',
+                'gender_id' => 'required|integer|exists:genders,id'
             ];
         }
 
         return [];
     }
 
-        /**
+    /**
      * Get the custom messages for validation errors.
      *
      * @return array<string, string>
@@ -71,6 +73,7 @@ class StorePatientRequest extends FormRequest
             'number_document.unique' => 'El número de documento ya está registrado.',
             'date_of_birth.required' => 'La fecha de nacimiento es obligatoria.',
             'date_of_birth.date' => 'La fecha de nacimiento debe ser una fecha válida.',
+            'date_of_birth.before' => 'La fecha de nacimiento debe ser anterior a hoy.',
             'email.required' => 'El correo electrónico es obligatorio.',
             'email.email' => 'El correo electrónico debe ser una dirección de correo válida.',
             'email.unique' => 'El correo electrónico ya está registrado.',
@@ -79,4 +82,3 @@ class StorePatientRequest extends FormRequest
         ];
     }
 }
- 
