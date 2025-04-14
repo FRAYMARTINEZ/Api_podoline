@@ -12,7 +12,7 @@ class PatientRepository implements PatientRepositoryInterface
 {
     public function all()
     {
-        return Patient::withTrashed()->paginate(15);
+        return Patient::whereNull('deleted_at')->paginate(5); // Filtro explícito
     }
 
     public function find(int $id): ?Patient
