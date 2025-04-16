@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('attention_patients', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreignId('patient_id')->constrained()->onDelete('cascade');
             $table->foreignId('attention_id')->constrained()->onDelete('cascade');
+            // Relaciones (si usas claves foráneas)
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();
         });
     }
 

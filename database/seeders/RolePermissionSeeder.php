@@ -42,26 +42,30 @@ class RolePermissionSeeder extends Seeder
         $pro2Role->givePermissionTo([$createPermission, $viewPermission, $searchPermission]);
 
 
-        ConsultingOffice::insert([
+        ConsultingOffice::create(
             [
-                'name'=>'Consultorio Cali',
+                'name' => 'Consultorio Cali',
                 'country_id' => 1, // Asegúrate de que exista en la tabla countries
                 'department_id' => 1, // Asegúrate de que exista en la tabla departments
                 'city_id' => 1, // Asegúrate de que exista en la tabla cities
                 'address' => 'Calle 123 #45-67, Medellín',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
+            ]
+        );
+        
+        ConsultingOffice::create(
             [
-                'name'=>'Consultorio Medellin',
+                'name' => 'Consultorio Medellin',
                 'country_id' => 1,
                 'department_id' => 2,
                 'city_id' => 2,
                 'address' => 'Carrera 89 #12-34, Bogotá',
                 'created_at' => now(),
                 'updated_at' => now(),
+
             ]
-        ]);
+        );
 
 
         // Crear usuarios y asignar roles

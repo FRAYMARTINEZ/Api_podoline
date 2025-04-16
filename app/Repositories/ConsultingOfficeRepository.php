@@ -31,8 +31,7 @@ class ConsultingOfficeRepository implements ConsultingOfficeRepositoryInterface
 
     public function update(int $id, array $data)
     {
-        Log::info($data);
-        Log::info($id);
+
         $consultingOffice = ConsultingOffice::findOrFail($id);
         $consultingOffice->name = $data['name'] ?? $consultingOffice->name;
         $consultingOffice->city_id = $data['city_id'] ?? $consultingOffice->city_id;

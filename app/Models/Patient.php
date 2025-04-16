@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\CreatedByScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Patient extends Model
 {
@@ -31,4 +33,27 @@ class Patient extends Model
     {
         return $this->belongsTo(Gender::class, 'gender_id');
     }
+
+    protected static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($model) {
+        $userId = Auth::id() ?? 1;
+        if ($userId) {
+            $model->created_by = $userId;
+            $model->updated_by = $userId;
+        }
+    });
+
+    static::updating(function ($model) {
+        $userId = Auth::id() ?? 1;
+        if ($userId) {
+            $model->updated_by = $userId;
+        }
+    });
+
+    static::addGlobalScope(new CreatedByScope);
+}
+
 }

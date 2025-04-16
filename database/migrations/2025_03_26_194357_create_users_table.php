@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('office_id')->constrained('consulting_offices')->onDelete('cascade');
+
             $table->string('name');
             $table->string('full_name')->nullable();
             $table->string('email')->unique();
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

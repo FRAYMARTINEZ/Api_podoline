@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\CreatedByScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class ConsultingOffice extends Model
 {
@@ -15,7 +17,9 @@ class ConsultingOffice extends Model
         'city_id',
         'country_id',
         'department_id',
-        'address'
+        'address',
+        'created_by',
+        'updated_by',
     ];
 
     public function city()
@@ -31,5 +35,27 @@ class ConsultingOffice extends Model
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $userId = Auth::id() ?? 1;
+            if ($userId) {
+                $model->created_by = $userId;
+                $model->updated_by = $userId;
+            }
+        });
+
+        static::updating(function ($model) {
+            $userId = Auth::id() ?? 1;
+            if ($userId) {
+                $model->updated_by = $userId;
+            }
+        });
+
+        static::addGlobalScope(new CreatedByScope);
     }
 }

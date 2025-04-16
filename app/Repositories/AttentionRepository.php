@@ -10,7 +10,6 @@ use App\Repositories\Contracts\AttentionRepositoryInterface;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -46,7 +45,7 @@ class AttentionRepository implements AttentionRepositoryInterface
             'heel_type_right', // Tipo Talón Der
             'observations' // Observaciones
         ]);
-
+ 
         $images = $request->only([
             'back_standing_up_image',
             'back_45_image',

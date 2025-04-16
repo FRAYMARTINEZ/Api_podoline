@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('consulting_offices', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->string('name');
             $table->foreignId('country_id')->constrained()->onDelete('cascade');
             $table->foreignId('department_id')->constrained()->onDelete('cascade');

@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->foreignId('gender_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->string('name');
             $table->string('last_name');
             $table->string('type_document');
@@ -21,8 +23,11 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('email');
             $table->string('cellphone');
+            // Relaciones (si usas claves foráneas)
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();
         });
     }
 

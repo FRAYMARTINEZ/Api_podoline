@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Scopes\CreatedByScope;
 use App\Traits\HasImages;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Attention extends Model
 {
@@ -31,5 +33,27 @@ class Attention extends Model
     {
         return $this->belongsToMany(Patient::class, 'attention_patients')
             ->withTimestamps();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $userId = Auth::id() ?? 1;
+            if ($userId) {
+                $model->created_by = $userId;
+                $model->updated_by = $userId;
+            }
+        });
+
+        static::updating(function ($model) {
+            $userId = Auth::id() ?? 1;
+            if ($userId) {
+                $model->updated_by = $userId;
+            }
+        });
+
+       // static::addGlobalScope(new CreatedByScope);
     }
 }
