@@ -1,0 +1,16 @@
+#Primer comando.
+docker-compose up -d
+docker-compose exec app php artisan storage:link #Este seguro dira que el link ya existe
+docker-compose exec app php artisan migrate --seed
+# Si ahí cambios en el contenedor
+docker-compose down
+docker-compose up -d
+
+docker-compose exec app php artisan storage:link
+docker-compose exec app ls -la public/storage
+
+#Para ingresar al php admin
+http://localhost:8080/
+#La base datos se llama laravel
+Usuario: laravel
+Contraseña: secret

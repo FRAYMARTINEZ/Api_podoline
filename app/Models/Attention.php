@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Scopes\CreatedByScope;
+use App\Models\Scopes\CreatedByScope;
 use App\Traits\HasImages;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -54,6 +54,6 @@ class Attention extends Model
             }
         });
 
-       // static::addGlobalScope(new CreatedByScope);
+        static::addGlobalScope(new CreatedByScope);
     }
 }

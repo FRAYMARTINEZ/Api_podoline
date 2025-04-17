@@ -35,25 +35,24 @@ class Patient extends Model
     }
 
     protected static function boot()
-{
-    parent::boot();
+    {
+        parent::boot();
 
-    static::creating(function ($model) {
-        $userId = Auth::id() ?? 1;
-        if ($userId) {
-            $model->created_by = $userId;
-            $model->updated_by = $userId;
-        }
-    });
+        static::creating(function ($model) {
+            $userId = Auth::id() ?? 1;
+            if ($userId) {
+                $model->created_by = $userId;
+                $model->updated_by = $userId;
+            }
+        });
 
-    static::updating(function ($model) {
-        $userId = Auth::id() ?? 1;
-        if ($userId) {
-            $model->updated_by = $userId;
-        }
-    });
+        static::updating(function ($model) {
+            $userId = Auth::id() ?? 1;
+            if ($userId) {
+                $model->updated_by = $userId;
+            }
+        });
 
-    static::addGlobalScope(new CreatedByScope);
-}
-
+        static::addGlobalScope(new CreatedByScope);
+    }
 }
