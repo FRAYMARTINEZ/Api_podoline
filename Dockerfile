@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.3-fpm
 
 # Evitar interacciones con paquetes
 ENV DEBIAN_FRONTEND noninteractive

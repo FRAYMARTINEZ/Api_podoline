@@ -1,9 +1,10 @@
 #Primer comando.
 docker-compose up -d
 docker-compose exec app php artisan storage:link #Este seguro dira que el link ya existe
-docker-compose exec app php artisan migrate --seed
+docker-compose exec app php artisan migrate --seed #Se ejecuta una sola vez
 # Si ahí cambios en el contenedor
 docker-compose down
+docker-compose down -v ó docker-compose down --volumes --remove-orphans
 docker-compose up -d
 
 docker-compose exec app php artisan storage:link

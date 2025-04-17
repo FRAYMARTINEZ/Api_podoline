@@ -69,7 +69,8 @@ class UserRepository implements UserRepositoryInterface
 
         return [
             'token' => $token,
-            'user' => $user
+            'user' => $user,
+            'role'=> $user->roles->first()->name
         ];
     }
 

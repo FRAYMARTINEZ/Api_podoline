@@ -1,0 +1,15 @@
+node_modules
+vendor
+.env
+.env.*
+*.log
+*.zip
+*.tar
+*.tar.gz
+*.bak
+*.tmp
+*.swp
+*.DS_Store
+*.idea
+.vscode
+.git
