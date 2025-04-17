@@ -23,6 +23,9 @@ class StoreConsultingOfficeRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'email'=>'required|email|unique:consulting_offices,email',
+            'phone'=>'required|string|max:20', 
+            'page_web'=>'required|string|max:255',
             'city_id' => 'required|integer|exists:cities,id',
             'country_id' => 'required|integer|exists:countries,id',
             'department_id' => 'required|integer|exists:departments,id',
@@ -53,6 +56,15 @@ class StoreConsultingOfficeRequest extends FormRequest
             'address.required' => 'La dirección es obligatoria.',
             'address.string' => 'La dirección debe ser un texto.',
             'address.max' => 'La dirección no puede tener más de 255 caracteres.',
+
+            'email.email' => 'El correo electrónico no tiene un formato válido.',
+            'email.unique' => 'Este correo electrónico ya está registrado.',
+            
+            'phone.string' => 'El número de teléfono debe ser una cadena de texto.',
+            'phone.max' => 'El número de teléfono no debe exceder los 20 caracteres.',
+            
+            'page_web.string' => 'La página web debe ser una cadena de texto.',
+            'page_web.max' => 'La URL de la página web no debe exceder los 255 caracteres.',
         ];
     }
 }

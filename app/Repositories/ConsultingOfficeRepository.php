@@ -26,6 +26,10 @@ class ConsultingOfficeRepository implements ConsultingOfficeRepositoryInterface
         $consultingOffice->country_id = $data['country_id'];
         $consultingOffice->department_id = $data['department_id'];
         $consultingOffice->address = $data['address'];
+        $consultingOffice->email = $data['email'];
+        $consultingOffice->phone = $data['phone'];
+        $consultingOffice->page_web = $data['page_web'];
+
         return $consultingOffice->save() ? $consultingOffice : null;
     }
 
@@ -38,6 +42,10 @@ class ConsultingOfficeRepository implements ConsultingOfficeRepositoryInterface
         $consultingOffice->country_id = $data['country_id'] ?? $consultingOffice->country_id;
         $consultingOffice->department_id = $data['department_id'] ?? $consultingOffice->department_id;
         $consultingOffice->address = $data['address'] ?? $consultingOffice->address;
+        $consultingOffice->email = $data['email'] ?? $consultingOffice->email;
+        $consultingOffice->phone = $data['phone'] ?? $consultingOffice->phone;
+        $consultingOffice->page_web = $data['page_web'] ?? $consultingOffice->page_web;
+
         $consultingOffice->save();
         return $consultingOffice;
     }

@@ -14,6 +14,9 @@ class ConsultingOffice extends Model
 
     protected $fillable = [
         'name',
+        'email',
+        'phone', 
+        'page_web',
         'city_id',
         'country_id',
         'department_id',

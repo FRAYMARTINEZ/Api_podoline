@@ -28,6 +28,8 @@ class RegisterRequest extends FormRequest
                 'role' => 'required|string|max:20',
                 'name' => 'required|string|max:255',
                 'full_name' => 'required|string|max:255',
+                'phone' => 'required|string|max:20',
+                'position' => 'string|max:20',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|confirmed|min:8',
             ];
@@ -82,6 +84,13 @@ class RegisterRequest extends FormRequest
             'password.string' => 'La contraseña debe ser una cadena de texto.',
             'password.confirmed' => 'Las contraseñas no coinciden.',
             'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+
+            'phone.required' => 'El número de teléfono es obligatorio.',
+            'phone.string' => 'El número de teléfono debe ser una cadena de texto.',
+            'phone.max' => 'El número de teléfono no debe exceder los 20 caracteres.',
+    
+            'position.string' => 'El cargo debe ser una cadena de texto.',
+            'position.max' => 'El cargo no debe exceder los 20 caracteres.',
         ];
     }
 }
