@@ -42,7 +42,9 @@ class AttentionRepository implements AttentionRepositoryInterface
             'foot_type_left', // Tipo Pie Izq
             'foot_type_right', // Tipo Pie Der
             'heel_type_left', // Tipo Talón Izq
-            'heel_type_right', // Tipo Talón Der
+            'heel_type_right', // Tipo Talón Der,
+            'extra',
+            'side', // Lado
             'observations' // Observaciones
         ]);
  
@@ -62,6 +64,9 @@ class AttentionRepository implements AttentionRepositoryInterface
             // Guardar la atención
             $attention = Attention::create($data);
 
+            if(!$attention){
+                return response()->json(['message' => 'Atención no pudo ser creada.'], 500);
+            }
             // Guardar imágenes
             foreach (array_keys($images) as $key) {
                 if ($request->hasFile($key)) {
@@ -106,6 +111,8 @@ class AttentionRepository implements AttentionRepositoryInterface
             'foot_type_right',
             'heel_type_left',
             'heel_type_right',
+            'extra',
+            'side',
             'observations'
         ]);
 
@@ -121,6 +128,9 @@ class AttentionRepository implements AttentionRepositoryInterface
         try {
             DB::beginTransaction();
             $attention = Attention::with('images')->find($id);
+            if(!$attention){
+                return response()->json(['message' => 'Atención no fue encontrada.'], 500);
+            }
             // Actualiza los campos del modelo
             $attention->update($data);
 
@@ -131,8 +141,8 @@ class AttentionRepository implements AttentionRepositoryInterface
                     foreach ($attention->images as $image) {
 
                         if (Str::contains($image->path, $key)) {
-                            if (Storage::exists('public/' . $image->path)) {
-                                Storage::delete('public/' . $image->path);
+                            if (Storage::exists($image->path)) {
+                                Storage::delete($image->path);
                             }
                             $image->delete();
                         }
@@ -150,7 +160,7 @@ class AttentionRepository implements AttentionRepositoryInterface
             }
 
             DB::commit();
-            return response()->json(['message' => 'Atención actualizada correctamente.']);
+            return response()->json(['message' => 'Atención sea actualizado correctamente.']);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['error' => 'Error al actualizar la atención: ' . $e->getMessage()]);

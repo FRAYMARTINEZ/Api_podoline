@@ -34,7 +34,7 @@ trait ImageTrait
             
             // Asegurar que el directorio existe
             $path = $directory . '/' . date('Y/m/d');
-            Storage::makeDirectory('public/' . $path);
+            Storage::makeDirectory($path);
             
             // Crear el ImageManager (usando GD por defecto)
             $manager = new ImageManager(new Driver());

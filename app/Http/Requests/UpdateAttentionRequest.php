@@ -31,6 +31,8 @@ class UpdateAttentionRequest extends FormRequest
             'foot_type_right' => 'sometimes|string|max:255',
             'heel_type_left' => 'sometimes|string|max:255',
             'heel_type_right' => 'sometimes|string|max:255',
+            'extra' => 'sometimes|string|max:255',
+            'side' => 'sometimes|string|max:255',
             'observations' => 'nullable|string|max:1000',
             'back_standing_up_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'back_45_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',

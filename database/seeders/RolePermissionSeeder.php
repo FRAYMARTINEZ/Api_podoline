@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -17,6 +18,8 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
+
+        Storage::deleteDirectory('attentions');
 
         //Ejemplo de implementación
         // Crear roles

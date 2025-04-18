@@ -24,7 +24,8 @@ class Attention extends Model
 
         'heel_type_left', // Tipo Talón Izq
         'heel_type_right', // Tipo Talón Der
-
+        'extra',
+        'side', // Lado
         'observations' // Observaciones
     ];
 
