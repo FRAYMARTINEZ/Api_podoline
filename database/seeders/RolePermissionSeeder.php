@@ -45,6 +45,9 @@ class RolePermissionSeeder extends Seeder
         ConsultingOffice::create(
             [
                 'name' => 'Consultorio Cali',
+                'email'=>'consultorio1@gmail.com',
+                'phone'=>'34343434', 
+                'page_web'=>'consultorio1.web',
                 'country_id' => 1, // Asegúrate de que exista en la tabla countries
                 'department_id' => 1, // Asegúrate de que exista en la tabla departments
                 'city_id' => 1, // Asegúrate de que exista en la tabla cities
@@ -57,6 +60,9 @@ class RolePermissionSeeder extends Seeder
         ConsultingOffice::create(
             [
                 'name' => 'Consultorio Medellin',
+                'email'=>'consultorio2@gmail.com',
+                'phone'=>'34343423', 
+                'page_web'=>'consultorio2.web',
                 'country_id' => 1,
                 'department_id' => 2,
                 'city_id' => 2,
@@ -73,8 +79,10 @@ class RolePermissionSeeder extends Seeder
             ['email' => 'admin@example.com'],
             [
                 'name' => 'Admin User',
+                'phone'=>'3456676867', 
+                'position'=>'Gerente',
                 'password' => Hash::make('password'),
-                'office_id' => 1
+                'office_id' => 1,
             ]
         );
         $admin->assignRole('Administrador');
@@ -83,8 +91,10 @@ class RolePermissionSeeder extends Seeder
             ['email' => 'profesional1@example.com'],
             [
                 'name' => 'Profesional 1',
+                'phone'=>'3434343434', 
+                'position'=>'Secretaria',
                 'password' => Hash::make('password'),
-                'office_id' => 1
+                'office_id' => 1,
             ]
         );
         $user1->assignRole('Profesional1');
@@ -93,6 +103,8 @@ class RolePermissionSeeder extends Seeder
             ['email' => 'profesional2@example.com'],
             [
                 'name' => 'Profesional 2',
+                'phone'=>'3434344545', 
+                'position'=>'Secretaria 2',
                 'password' => Hash::make('password'),
                 'office_id' => 1
             ]
