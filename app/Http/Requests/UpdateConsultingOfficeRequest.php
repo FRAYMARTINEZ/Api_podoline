@@ -21,11 +21,14 @@ class UpdateConsultingOfficeRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('id') ?? null;
         return [
+
+
             'name' => 'sometimes|required|string|max:255',
-            'email'=>'sometimes|email|unique:consulting_offices,email',
-            'phone'=>'sometimes|string|max:20', 
-            'page_web'=>'sometimes|string|max:255',
+            'email' => 'sometimes|required|email|unique:consulting_offices,email,' . $id,
+            'phone' => 'sometimes|string|max:20',
+            'page_web' => 'sometimes|string|max:255',
             'city_id' => 'sometimes|required|integer|exists:cities,id',
             'country_id' => 'sometimes|required|integer|exists:countries,id',
             'department_id' => 'sometimes|required|integer|exists:departments,id',
