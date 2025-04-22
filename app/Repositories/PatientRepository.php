@@ -12,7 +12,8 @@ class PatientRepository implements PatientRepositoryInterface
 {
     public function all()
     {
-        return Patient::whereNull('deleted_at')->paginate(5); // Filtro explícito
+        // return Patient::all();
+        return Patient::whereNull('deleted_at')->paginate(300); // Filtro explícito
     }
 
     public function find(int $id): ?Patient
@@ -40,7 +41,7 @@ class PatientRepository implements PatientRepositoryInterface
         $patient = new Patient();
         $patient->name = $data['name'] ?? '';
         $patient->last_name = $data['last_name'] ?? '';
-        $patient->type_document = $data['type_documente'] ?? '';
+        $patient->type_document = $data['type_document'] ?? '';
         $patient->number_document = $data['number_document'] ?? '';
         $patient->date_of_birth = $data['date_of_birth'] ?? '';
         $patient->email = $data['email'] ?? '';
@@ -56,7 +57,7 @@ class PatientRepository implements PatientRepositoryInterface
         if ($patient) {
             $patient->name = $data['name'] ??  $patient->name;
             $patient->last_name = $data['last_name'] ??  $patient->last_name;
-            $patient->type_document = $data['type_documente'] ??  $patient->type_document;
+            $patient->type_document = $data['type_document'] ??  $patient->type_document;
             $patient->number_document = $data['number_document'] ??  $patient->number_document;
             $patient->date_of_birth = $data['date_of_birth'] ??  $patient->date_of_birth;
             $patient->email = $data['email'] ??  $patient->email;
