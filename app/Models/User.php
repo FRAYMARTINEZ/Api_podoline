@@ -31,7 +31,7 @@ class User extends Authenticatable implements JWTSubject
         'office_id',
         'name',
         'full_name',
-        'phone', 
+        'phone',
         'position',
         'email',
         'password',
@@ -86,5 +86,19 @@ class User extends Authenticatable implements JWTSubject
     public function office()
     {
         return $this->belongsTo(ConsultingOffice::class, 'office_id');
+    }
+
+    public function patients()
+    {
+        return $this->hasMany(Patient::class, 'created_by');
+    }
+    public function attentions()
+    {
+        return $this->hasMany(Attention::class, 'created_by');
+    }
+
+    public function consultations()
+    {
+        return $this->hasMany(ConsultingOffice::class, 'created_by');
     }
 }

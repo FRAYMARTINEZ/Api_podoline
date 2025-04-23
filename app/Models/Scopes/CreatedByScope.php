@@ -15,7 +15,8 @@ class CreatedByScope implements Scope
             $user = Auth::user();
 
             if ($user && !$user->hasRole('Administrador')) {
-                $builder->where($model->getTable() . '.created_by', $user->id);
+                $builder->where($model->getTable() . '.created_by', $user->id)
+                    ->where($model->getTable() . '.office_id', $user->office_id);
             }
         }
     }

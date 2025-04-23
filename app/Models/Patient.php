@@ -20,7 +20,8 @@ class Patient extends Model
         'date_of_birth',
         'email',
         'cellphone',
-        'gender_id'
+        'gender_id',
+        'office_id',
 
     ];
     public function attentions()
@@ -39,17 +40,22 @@ class Patient extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $userId = Auth::id() ?? 1;
-            if ($userId) {
-                $model->created_by = $userId;
-                $model->updated_by = $userId;
+            $user = Auth::user();
+            if ($user) {
+                $model->created_by = $user->id;
+                $model->updated_by = $user->id;
+                $model->office_id = $user->office_id;
+            } else {
+                $model->created_by = 1;
+                $model->updated_by = 1;
+                $model->office_id = 1;
             }
         });
 
         static::updating(function ($model) {
-            $userId = Auth::id() ?? 1;
-            if ($userId) {
-                $model->updated_by = $userId;
+            $user = Auth::user();
+            if ($user) {
+                $model->updated_by = $user;
             }
         });
 

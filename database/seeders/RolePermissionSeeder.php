@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\ConsultingOffice;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -114,5 +114,7 @@ class RolePermissionSeeder extends Seeder
         );
 
         $user2->assignRole('Profesional2');
+
+        Artisan::call('storage:link');
     }
 }

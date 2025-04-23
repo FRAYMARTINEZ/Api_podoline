@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
+            $table->foreignId('office_id')->constrained('consulting_offices')->onDelete('cascade');
+
             $table->date('appointment_date'); // Fecha de atención
             $table->integer('shoe_size'); // Talla de zapato
 
