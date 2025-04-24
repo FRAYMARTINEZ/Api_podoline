@@ -17,29 +17,21 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreignId('office_id')->constrained('consulting_offices')->onDelete('cascade');
 
-            $table->date('appointment_date'); // Fecha de atención
-            $table->integer('shoe_size'); // Talla de zapato
+            $table->date('appointment_date')->default(now()); // Fecha de atención
+            $table->integer('shoe_size')->nullable(); // Talla de zapato
 
-            // Imágenes
-            // $table->string('back_standing_up_image');
-            // $table->string('back_45_image');
-            // $table->string('back_toes_up_image');
-            // $table->string('from_chaplin_image');
-            // $table->string('from_chaplin_toes_up_image');
-            // $table->string('with_insoles_image');
+            $table->string('footstep_type_left')->default('NEUTRO'); // Tipo pisada Izq
+            $table->string('footstep_type_right')->default('NEUTRO'); // Tipo pisada Der
 
-            $table->string('footstep_type_left'); // Tipo pisada Izq
-            $table->string('footstep_type_right'); // Tipo pisada Der
-            
-            $table->string('foot_type_left'); // Tipo Pie Izq
-            $table->string('foot_type_right'); // Tipo Pie Der
-            
-            $table->string('heel_type_left'); // Tipo Talón Izq
-            $table->string('heel_type_right'); // Tipo Talón Der
-            
+            $table->string('foot_type_left')->default('NEUTRO'); // Tipo Pie Izq
+            $table->string('foot_type_right')->default('NEUTRO'); // Tipo Pie Der
+
+            $table->string('heel_type_left')->default('NEUTRO'); // Tipo Talón Izq
+            $table->string('heel_type_right')->default('NEUTRO'); // Tipo Talón Der
+
             $table->text('observations')->nullable(); // Observaciones
-            $table->string('extra');
-            $table->string('side');
+            $table->string('extra')->default('{}');
+            $table->string('side')->default('{}');
             // Relaciones (si usas claves foráneas)
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');

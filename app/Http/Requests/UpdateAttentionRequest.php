@@ -33,13 +33,13 @@ class UpdateAttentionRequest extends FormRequest
             'heel_type_right' => 'sometimes|string|max:255',
             'extra' => 'sometimes|string|max:255',
             'side' => 'sometimes|string|max:255',
-            'observations' => 'nullable|string|max:1000',
-            'back_standing_up_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'back_45_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'back_toes_up_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'from_chaplin_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'from_chaplin_toes_up_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'with_insoles_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'observations' => 'sometimes|string|max:1000',
+            'back_standing_up_image' => 'sometimes|image|mimes:jpg,jpeg,png|max:2048',
+            'back_45_image' => 'sometimes|image|mimes:jpg,jpeg,png|max:2048',
+            'back_toes_up_image' => 'sometimes|image|mimes:jpg,jpeg,png|max:2048',
+            'from_chaplin_image' => 'sometimes|image|mimes:jpg,jpeg,png|max:2048',
+            'from_chaplin_toes_up_image' => 'sometimes|image|mimes:jpg,jpeg,png|max:2048',
+            'with_insoles_image' => 'sometimes|image|mimes:jpg,jpeg,png|max:2048',
         ];
     }
 
