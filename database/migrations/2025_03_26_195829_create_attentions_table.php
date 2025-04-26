@@ -30,8 +30,8 @@ return new class extends Migration
             $table->string('heel_type_right')->default('NEUTRO'); // Tipo Talón Der
 
             $table->text('observations')->nullable(); // Observaciones
-            $table->string('extra')->default('{}');
-            $table->string('side')->default('{}');
+            $table->text('extra')->nullable();
+            $table->text('side')->nullable();
             // Relaciones (si usas claves foráneas)
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
