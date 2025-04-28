@@ -63,6 +63,7 @@ class PatientRepository implements PatientRepositoryInterface
             $patient->email = $data['email'] ??  $patient->email;
             $patient->cellphone = $data['cellphone'] ??  $patient->cellphone;
             $patient->gender_id = $data['gender_id'] ??  $patient->gender_id;
+
             $patient->save();
         }
         return $patient;
