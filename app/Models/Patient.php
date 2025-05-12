@@ -55,7 +55,7 @@ class Patient extends Model
         static::updating(function ($model) {
             $user = Auth::user();
             if ($user) {
-                $model->updated_by = $user;
+                $model->updated_by = $user->id;
             }
         });
 

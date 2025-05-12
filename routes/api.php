@@ -5,11 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConsultingOfficeController;
 use App\Http\Controllers\DefaultController;
 use App\Http\Controllers\PatientController;
-//use App\Http\Controllers\UserContoller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\CitiesController;
+use Illuminate\Support\Facades\Artisan;
 use App\Models\Attention;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -93,6 +93,10 @@ Route::group([
     $router->put('/restore/{id}', [ConsultingOfficeController::class, 'restore'])->middleware(['auth:sanctum', 'role:Administrador|Profesional1'])->name('attentions.restore');
 });
 
+Route::get('/generate-link-image', function () {
+    Artisan::call('storage:link');
+    return response()->json(['message' => 'Storage link created successfully']);
+});
 /*
 Ejemplo de como validar rutas con rol o permiso
 
